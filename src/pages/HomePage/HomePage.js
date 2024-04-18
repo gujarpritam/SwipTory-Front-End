@@ -1,14 +1,16 @@
 import React from "react";
+// import { useLocation, useNavigate } from "react-router-dom";
+
 import Navbar from "../../components/Navbar/Navbar";
-import Register from "../../components/Register/Register";
-import Login from "../../components/Login/Login";
 
 function HomePage() {
+  // const { state } = useLocation();
+  // const [username, setUsername] = useState(state?.username);
+  // console.log("state", state);
+
   return (
     <div>
       <Navbar />
-      <Register />
-      <Login />
     </div>
   );
 }

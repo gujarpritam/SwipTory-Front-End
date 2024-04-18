@@ -9,6 +9,7 @@
   top: 0px;
   opacity: 0.85;
   background-color: black;
+  
 }
 
 .register{
@@ -34,7 +35,7 @@
   justify-content: space-around;
 }
 
-.close{
+.closeRegistration{
   height: 30px;
   width: 30px;
   border-radius: 50%;
@@ -66,6 +67,11 @@ span{
 width: 60%;
 padding: 0.5rem;
 border: 1px solid black;
+}
+
+.error, .userExistError{
+  color: red;
+  display: none;
 }
 
 .button{

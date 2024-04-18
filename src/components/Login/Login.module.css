@@ -1,0 +1,87 @@
+.container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  /* border: 1px solid red; */
+  position: absolute;
+  top: 0px;
+  opacity: 0.85;
+  background-color: black;
+  
+}
+
+.login{
+  height: 50vh;
+  width: 40vw;
+  border: 1px solid black;
+  display:  flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background-color: white;
+  opacity: unset;
+}
+
+.form{
+  height: 70%;
+  width: 70%;
+  position: relative;
+  /* border: 1px solid red; */
+  display:  flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.closeLogin{
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  padding: 0.2rem;
+  border:2px solid #FF0000;
+  color: #FF0000;
+  position: absolute;
+  top: -10px;
+  right: -10%;
+  background: none;
+  text-align:center ;
+  font-weight: bold;
+  font-size: large;
+  cursor: pointer;
+}
+
+.form > div{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+span{
+  font-weight: bold;
+}
+
+.input{
+width: 60%;
+padding: 0.5rem;
+border: 1px solid black;
+}
+
+.error, .invalidCredentialsError{
+  color: red;
+  display: none;
+}
+
+.button{
+  padding: 0.5rem 1rem;
+border-radius: 15px;
+border: none;
+background-color:  #73ABFF;
+color: black;
+margin-right: 1rem;
+cursor: pointer;
+font-weight: bold;
+
+}
