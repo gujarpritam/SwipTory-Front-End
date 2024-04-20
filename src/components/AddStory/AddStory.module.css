@@ -1,0 +1,163 @@
+.container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  /* border: 1px solid red; */
+  position: absolute;
+  top: 0px;
+  opacity: 0.85;
+  background-color: black;
+  
+}
+
+.addStory{
+  height: 70vh;
+  width: 50vw;
+  border: 1px solid black;
+  display:  flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background-color: white;
+  opacity: unset;
+  position: relative;
+}
+
+.subContainer{
+  height: 70%;
+  width: 70%;
+  /* position: relative; */
+  border: 1px solid red;
+  display:  flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.subContainer > div{
+width: 100%;
+}
+
+.closeAddStory{
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  padding: 0.2rem;
+  border:2px solid #FF0000;
+  color: #FF0000;
+  position: absolute;
+  top: 3%;
+  right: 3%;
+  background: none;
+  text-align:center ;
+  font-weight: bold;
+  font-size: large;
+  cursor: pointer;
+}
+
+.addSlideWarning{
+position: absolute;
+top: 10%;
+  right: 3%;
+  font-size: small;
+  font-weight: bold;
+}
+
+.minSlidesError{
+  display: none;
+  color: red;
+  font-size: small;
+  margin-bottom: 1%;
+}
+
+.inputError{
+  display: none;
+  color: red;
+  font-size: small;
+  /* margin-bottom: 1%; */
+}
+
+.slides{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  
+}
+.slide{
+  padding: 0.5rem 0.5rem;
+  margin: 0rem 0.4rem;
+  color: black;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0px 4px 15px 0px #00000026;
+padding: 0.7rem;
+display: flex;
+}
+
+#slide1,#slide2,#slide3{
+
+}
+
+#slide4,#slide5,#slide6{
+display: none;
+} 
+.storyForm{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  border: 1px solid blue;
+
+  height: 70%;
+}
+
+.formGroup{
+  display: flex;
+  justify-content: space-between;
+  width: 90%;
+  border: 1px solid black;
+}
+.label{
+  font-weight: bold;
+}
+.input, .select, .option{
+  width: 60%
+}
+
+.buttonContainer{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.previous{padding: 0.5rem 1rem;
+  border-radius: 15px;
+  border: none;
+  color: white;
+  margin-right: 1rem;
+  cursor: pointer;
+  font-weight: bold;
+  background-color: #7EFF73;
+  }
+
+  .next{padding: 0.5rem 1rem;
+    border-radius: 15px;
+    border: none;
+    color: white;
+    margin-right: 1rem;
+    cursor: pointer;
+    font-weight: bold;
+    background-color:#73ABFF;
+    }
+    .post{padding: 0.5rem 1rem;
+      border-radius: 15px;
+      border: none;
+      color: white;
+      margin-right: 1rem;
+      cursor: pointer;
+      font-weight: bold;
+      background-color: #FF7373;
+      }

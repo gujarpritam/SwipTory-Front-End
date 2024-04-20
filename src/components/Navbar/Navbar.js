@@ -2,35 +2,24 @@ import React, { useEffect, useState } from "react";
 import styles from "./Navbar.module.css";
 import Register from "../Register/Register";
 import Login from "../Login/Login";
+import AddStory from "../AddStory/AddStory";
 import { useDispatch, useSelector } from "react-redux";
 import { setRegistration } from "../../slices/registrationSlice";
 import { setLogin } from "../../slices/loginSlice";
 import { unSetUser } from "../../slices/userSlice";
+import { setAddStory } from "../../slices/addStorySlice";
 import bookmark from "../../assets/icons/bookmark.png";
 import hamburger from "../../assets/icons/hamburger.png";
 import userPicture from "../../assets/images/user-picture.png";
 
 function Navbar() {
-  const state1 = useSelector((state) => state.registration);
-  const state2 = useSelector((state) => state.login);
-  const state3 = useSelector((state) => state.user);
+  const registrationState = useSelector((state) => state.registration);
+  const loginState = useSelector((state) => state.login);
+  const userState = useSelector((state) => state.user);
+  const addStoryState = useSelector((state) => state.addStory);
   let showLogout = false;
 
-  // const [loggedIn, setLoggedIn] = useState(state3.value);
-
-  console.log("state3", state3);
-
-  // useEffect(() => {
-  //   if (state3.value !== null) {
-  //     setIsLoggedIn(true);
-  //   } else {
-  //     setIsLoggedIn(false);
-  //   }
-  // }, []);
-
-  // console.log("token", token);
-  // console.log("isLoggedIn", isLoggedIn);
-  // let showLogout = false;
+  // console.log("state3", state3);
 
   const dispatch = useDispatch();
 
@@ -61,7 +50,7 @@ function Navbar() {
     <>
       <div className={styles.nav}>
         <div className={styles.heading}>SwipTory</div>
-        {state3.value !== null ? (
+        {userState.value !== null ? (
           <div className={styles.subContainer}>
             <button
               // onClick={() => }
@@ -71,7 +60,7 @@ function Navbar() {
               &nbsp; Bookmarks
             </button>
             <button
-              // onClick={() => dispatch(setLogin())}
+              onClick={() => dispatch(setAddStory())}
               className={styles.addStory}
             >
               Add Story
@@ -101,13 +90,14 @@ function Navbar() {
         )}
       </div>
       <div className={styles.userInfo}>
-        <h4>{state3.value}</h4>
+        <h4>{userState.value}</h4>
         <button onClick={handleLogout} className={styles.logout}>
           Logout
         </button>
       </div>
-      {state1.value === 1 && <Register />}
-      {state2.value === 1 && <Login />}
+      {registrationState.value === 1 && <Register />}
+      {loginState.value === 1 && <Login />}
+      {addStoryState.value === 1 && <AddStory />}
     </>
   );
 }
