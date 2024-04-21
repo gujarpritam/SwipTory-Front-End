@@ -1,16 +1,29 @@
 import React from "react";
-// import { useLocation, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import Navbar from "../../components/Navbar/Navbar";
+import Post from "../../components/Post/Post";
+import styles from "./HomePage.module.css";
 
 function HomePage() {
-  // const { state } = useLocation();
-  // const [username, setUsername] = useState(state?.username);
-  // console.log("state", state);
+  const loginState = useSelector((state) => state.login);
+  const registerState = useSelector((state) => state.register);
+  const storyPost = useSelector((state) => state.addStory);
+
+  if (
+    loginState?.value === 1 ||
+    registerState?.value === 1 ||
+    storyPost?.value === 1
+  ) {
+    document.body.style.overflow = "hidden";
+  } else {
+    document.body.style.overflow = "visible";
+  }
 
   return (
-    <div>
+    <div className={styles.container}>
       <Navbar />
+      <Post />
     </div>
   );
 }

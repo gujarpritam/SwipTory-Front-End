@@ -51,6 +51,7 @@ text-align: center;
   height:20px ;
   width: 30px;
   margin-right: 1rem;
+  cursor: pointer;
 }
 .login{
   padding: 0.5rem 1.5rem;
@@ -71,4 +72,6 @@ width: 10vw;
 /* border: 1px solid red; */
 position: fixed;
 right: 0px;
+z-index: 100;
+background-color: white;
 }

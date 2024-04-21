@@ -9,7 +9,7 @@
   top: 0px;
   opacity: 0.85;
   background-color: black;
-  
+  z-index: 100;
 }
 
 .login{
@@ -22,6 +22,7 @@
   border-radius: 10px;
   background-color: white;
   opacity: unset;
+  z-index: 100;
 }
 
 .form{

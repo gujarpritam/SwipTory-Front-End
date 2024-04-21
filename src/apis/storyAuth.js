@@ -40,3 +40,22 @@ export const addPost = async ({
     // alert("Something went wrong");
   }
 };
+
+export const getAllStories = async (filter) => {
+  try {
+    const reqUrl = `${process.env.REACT_APP_BACKEND_URL}/story/get?user=${
+      filter?.user || ""
+    }&category=${filter?.category || ""}`;
+
+    const response = await axios.get(reqUrl);
+
+    console.log(typeof response);
+    console.log("response?.data", response?.data);
+
+    console.log("response?.data.data", response?.data?.data);
+
+    return response?.data;
+  } catch (error) {
+    console.log(error);
+  }
+};

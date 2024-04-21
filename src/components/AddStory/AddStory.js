@@ -234,11 +234,12 @@ function AddStory() {
     // }
 
     const result = await addPost(storyData);
+    dispatch(unSetAddStory());
+    dispatch(unSetSlide());
+    navigate("/");
     // console.log("result on register", result);
     // if (result) {
     //   dispatch(setUser(result));
-    //   dispatch(unSetRegistration());
-    //   navigate("/");
     // }
 
     // document
@@ -248,8 +249,6 @@ function AddStory() {
     // document
     //   .getElementsByClassName(styles.userExistError)[0]
     //   .setAttribute("style", `display: flex;`);
-
-    // dispatch(unSetSlide());
   };
 
   return (
