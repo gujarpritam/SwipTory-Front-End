@@ -43,7 +43,7 @@ export const addPost = async ({
 
 export const getAllStories = async (filter) => {
   try {
-    const reqUrl = `${process.env.REACT_APP_BACKEND_URL}/story/get?user=${
+    const reqUrl = `${process.env.REACT_APP_BACKEND_URL}/story/getAll?user=${
       filter?.user || ""
     }&category=${filter?.category || ""}`;
 
@@ -55,6 +55,22 @@ export const getAllStories = async (filter) => {
     console.log("response?.data.data", response?.data?.data);
 
     return response?.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getStory = async (filter) => {
+  try {
+    const reqUrl = `${process.env.REACT_APP_BACKEND_URL}/story/getOne?id=${
+      filter?.id || ""
+    }`;
+
+    const response = await axios.get(reqUrl);
+
+    console.log("response?.data.data", response?.data?.data);
+
+    return response?.data?.data;
   } catch (error) {
     console.log(error);
   }

@@ -4,6 +4,7 @@ import loginReducer from "./slices/loginSlice";
 import userReducer from "./slices/userSlice";
 import addStoryReducer from "./slices/addStorySlice";
 import slideReducer from "./slices/slideSlice";
+import editPostReducer from "./slices/editPostSlice";
 
 const store = configureStore({
   reducer: {
@@ -12,6 +13,7 @@ const store = configureStore({
     user: userReducer,
     addStory: addStoryReducer,
     slide: slideReducer,
+    editPost: editPostReducer,
   },
 });
 

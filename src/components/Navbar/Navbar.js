@@ -8,6 +8,7 @@ import { setRegistration } from "../../slices/registrationSlice";
 import { setLogin } from "../../slices/loginSlice";
 import { unSetUser } from "../../slices/userSlice";
 import { setAddStory } from "../../slices/addStorySlice";
+// import { setUserStory } from "../../slices/userStorySlice";
 import bookmark from "../../assets/icons/bookmark.png";
 import hamburger from "../../assets/icons/hamburger.png";
 import userPicture from "../../assets/images/user-picture.png";
@@ -17,9 +18,8 @@ function Navbar() {
   const loginState = useSelector((state) => state.login);
   const userState = useSelector((state) => state.user);
   const addStoryState = useSelector((state) => state.addStory);
-  let showLogout = false;
 
-  // console.log("state3", state3);
+  let showLogout = false;
 
   const dispatch = useDispatch();
 
@@ -43,7 +43,6 @@ function Navbar() {
       .setAttribute("style", `display: none;`);
 
     dispatch(unSetUser());
-    // setToken(localStorage.getItem("swiptoryToken"));
   };
 
   return (
@@ -60,7 +59,10 @@ function Navbar() {
               &nbsp; Bookmarks
             </button>
             <button
-              onClick={() => dispatch(setAddStory())}
+              onClick={() => {
+                dispatch(setAddStory());
+                // dispatch(setUserStory());
+              }}
               className={styles.addStory}
             >
               Add Story
@@ -97,7 +99,7 @@ function Navbar() {
       </div>
       {registrationState.value === 1 && <Register />}
       {loginState.value === 1 && <Login />}
-      {addStoryState.value === 1 && <AddStory />}
+      {addStoryState.value === 1 && <AddStory postDetails={{}} />}
     </>
   );
 }

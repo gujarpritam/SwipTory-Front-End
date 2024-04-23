@@ -6,23 +6,29 @@ import { unSetAddStory } from "../../slices/addStorySlice";
 import { DEFAULT_SKILLS } from "../../utils/constant";
 import { setSlide, unSetSlide } from "../../slices/slideSlice";
 import { addPost } from "../../apis/storyAuth";
+import { unSetEditPost } from "../../slices/editPostSlice";
 
 function AddStory() {
   const slideState = useSelector((state) => state.slide);
+  const editPostState = useSelector((state) => state.editPost);
+
   const [slideNumber, setSlideNumber] = useState(null);
+  const [storyDetails, setStoryDetails] = useState(editPostState.value);
   const userState = useSelector((state) => state.user);
   let prevSlide = null;
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  console.log("storyDetails", storyDetails);
+
   const [storyData, setStoryData] = useState({
-    category: "",
-    slide1: [],
-    slide2: [],
-    slide3: [],
-    slide4: [],
-    slide5: [],
-    slide6: [],
+    category: "" || storyDetails?.category,
+    slide1: storyDetails?.slide1 || [],
+    slide2: storyDetails?.slide2 || [],
+    slide3: storyDetails?.slide3 || [],
+    slide4: storyDetails?.slide4 || [],
+    slide5: storyDetails?.slide5 || [],
+    slide6: storyDetails?.slide6 || [],
     username: userState.value,
   });
 
@@ -63,19 +69,19 @@ function AddStory() {
         setStoryData({ ...storyData, [slideNumber]: arr });
         // }
       }
+    } else {
+      document
+        .getElementsByClassName(styles.slideSelectionError)[0]
+        .setAttribute("style", `display: flex;`);
     }
-
-    // setStoryData({ ...storyData, [e.target.name]: e.target.value });
   };
 
   const selectSlide = (data) => {
-    // localStorage.setItem("prevState", slideNumber);
     dispatch(setSlide(slideNumber));
     setSlideNumber(data);
   };
 
   useEffect(() => {
-    // prevSlide = localStorage.getItem("prevState");
     prevSlide = slideState.value;
 
     console.log("slideNumber", slideNumber);
@@ -106,31 +112,30 @@ function AddStory() {
         .setAttribute("style", `border:none;`);
     }
 
-    // console.log("data", data);
     if (slideNumber === "slide1") {
       document
         .getElementsByClassName(styles.slide)[0]
-        .setAttribute("style", `border: 1px solid #73ABFF;`);
+        .setAttribute("style", `border: 1px solid #0043a7;`);
     } else if (slideNumber === "slide2") {
       document
         .getElementsByClassName(styles.slide)[1]
-        .setAttribute("style", `border: 1px solid #73ABFF;`);
+        .setAttribute("style", `border: 1px solid #0043a7;`);
     } else if (slideNumber === "slide3") {
       document
         .getElementsByClassName(styles.slide)[2]
-        .setAttribute("style", `border: 1px solid #73ABFF;`);
+        .setAttribute("style", `border: 1px solid #0043a7;`);
     } else if (slideNumber === "slide1") {
       document
         .getElementsByClassName(styles.slide)[3]
-        .setAttribute("style", `border: 1px solid #73ABFF;`);
+        .setAttribute("style", `border: 1px solid #0043a7;`);
     } else if (slideNumber === "slide1") {
       document
         .getElementsByClassName(styles.slide)[4]
-        .setAttribute("style", `border: 1px solid #73ABFF;`);
+        .setAttribute("style", `border: 1px solid #0043a7;`);
     } else {
       document
         .getElementsByClassName(styles.slide)[5]
-        .setAttribute("style", `border: 1px solid #73ABFF;`);
+        .setAttribute("style", `border: 1px solid #0043a7;`);
     }
   }, [slideNumber]);
 
@@ -236,19 +241,12 @@ function AddStory() {
     const result = await addPost(storyData);
     dispatch(unSetAddStory());
     dispatch(unSetSlide());
+    dispatch(unSetEditPost());
     navigate("/");
     // console.log("result on register", result);
     // if (result) {
     //   dispatch(setUser(result));
     // }
-
-    // document
-    //     .getElementsByClassName(styles.minSlidesError)[0]
-    //     .setAttribute("style", `display: none;`);
-
-    // document
-    //   .getElementsByClassName(styles.userExistError)[0]
-    //   .setAttribute("style", `display: flex;`);
   };
 
   return (
@@ -269,6 +267,8 @@ function AddStory() {
                 username: "",
               });
               dispatch(unSetAddStory());
+              dispatch(unSetEditPost());
+              dispatch(unSetSlide());
             }}
             className={styles.closeAddStory}
           >
@@ -276,6 +276,7 @@ function AddStory() {
           </button>
           <p className={styles.addSlideWarning}>Add upto 6 slides</p>
           <p className={styles.minSlidesError}>Minimum 3 slides are required</p>
+          <p className={styles.slideSelectionError}>Please select a slide</p>
           <div className={styles.slides}>
             <button
               id={styles.slide1}

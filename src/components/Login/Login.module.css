@@ -5,9 +5,9 @@
   height: 100%;
   width: 100%;
   /* border: 1px solid red; */
-  position: absolute;
+  position: fixed;
   top: 0px;
-  opacity: 0.85;
+  opacity: 0.9;
   background-color: black;
   z-index: 100;
 }

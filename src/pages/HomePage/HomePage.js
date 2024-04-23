@@ -7,7 +7,7 @@ import styles from "./HomePage.module.css";
 
 function HomePage() {
   const loginState = useSelector((state) => state.login);
-  const registerState = useSelector((state) => state.register);
+  const registerState = useSelector((state) => state.registration);
   const storyPost = useSelector((state) => state.addStory);
 
   if (
