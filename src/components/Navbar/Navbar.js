@@ -99,7 +99,7 @@ function Navbar() {
       </div>
       {registrationState.value === 1 && <Register />}
       {loginState.value === 1 && <Login />}
-      {addStoryState.value === 1 && <AddStory postDetails={{}} />}
+      {addStoryState.value === 1 && <AddStory />}
     </>
   );
 }

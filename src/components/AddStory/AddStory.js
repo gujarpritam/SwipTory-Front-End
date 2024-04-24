@@ -7,13 +7,15 @@ import { DEFAULT_SKILLS } from "../../utils/constant";
 import { setSlide, unSetSlide } from "../../slices/slideSlice";
 import { addPost } from "../../apis/storyAuth";
 import { unSetEditPost } from "../../slices/editPostSlice";
+import cross from "../../assets/icons/cross.png";
 
 function AddStory() {
   const slideState = useSelector((state) => state.slide);
   const editPostState = useSelector((state) => state.editPost);
 
-  const [slideNumber, setSlideNumber] = useState(null);
+  const [slideNumber, setSlideNumber] = useState("slide1");
   const [storyDetails, setStoryDetails] = useState(editPostState.value);
+  const [slidesCount, setSlidesCount] = useState([]);
   const userState = useSelector((state) => state.user);
   let prevSlide = null;
   const dispatch = useDispatch();
@@ -81,6 +83,31 @@ function AddStory() {
     setSlideNumber(data);
   };
 
+  const closeButton = (event, id) => {
+    const filteredButton = slidesCount.filter((item) => {
+      return item !== id;
+    });
+    console.log("filteredButton", filteredButton);
+    setStoryData({ ...storyData, [id]: [] });
+    console.log("storyData", storyData);
+    setSlidesCount([...filteredButton]);
+    console.log("slidesCount", slidesCount);
+    event.stopPropagation();
+  };
+
+  const addSlide = () => {
+    let arr = slidesCount;
+    if (arr.length === 0) {
+      arr.push("slide4");
+    } else if (arr.length === 1) {
+      arr.push("slide5");
+    } else if (arr.length === 2) {
+      arr.push("slide6");
+    }
+    console.log("arrSlideconut", arr);
+    setSlidesCount([...arr]);
+  };
+
   useEffect(() => {
     prevSlide = slideState.value;
 
@@ -106,7 +133,7 @@ function AddStory() {
       document
         .getElementsByClassName(styles.slide)[4]
         .setAttribute("style", `border:none;`);
-    } else {
+    } else if (prevSlide === "slide6") {
       document
         .getElementsByClassName(styles.slide)[5]
         .setAttribute("style", `border:none;`);
@@ -124,15 +151,15 @@ function AddStory() {
       document
         .getElementsByClassName(styles.slide)[2]
         .setAttribute("style", `border: 1px solid #0043a7;`);
-    } else if (slideNumber === "slide1") {
+    } else if (slideNumber === "slide4") {
       document
         .getElementsByClassName(styles.slide)[3]
         .setAttribute("style", `border: 1px solid #0043a7;`);
-    } else if (slideNumber === "slide1") {
+    } else if (slideNumber === "slide5") {
       document
         .getElementsByClassName(styles.slide)[4]
         .setAttribute("style", `border: 1px solid #0043a7;`);
-    } else {
+    } else if (slideNumber === "slide6") {
       document
         .getElementsByClassName(styles.slide)[5]
         .setAttribute("style", `border: 1px solid #0043a7;`);
@@ -249,6 +276,11 @@ function AddStory() {
     // }
   };
 
+  console.log("Slide Num", slideNumber);
+  console.log("prev state", prevSlide);
+  // console.log("storyData", storyData);
+  console.log("slideCount", slidesCount);
+
   return (
     <div className={styles.container}>
       <div className={styles.addStory}>
@@ -300,18 +332,31 @@ function AddStory() {
             >
               Slide 3
             </button>
-            <button
-              onClick={() => selectSlide("slide4")}
-              id={styles.slide4}
-              className={styles.slide}
-            >
-              Slide 4
-            </button>
-            <button
+
+            {slidesCount.map((item, index) => {
+              return (
+                <button
+                  onClick={() => selectSlide(item)}
+                  // id={styles.{}}
+                  className={styles.slide}
+                >
+                  {item === "slide4" && <span>Slide 4</span>}
+                  {item === "slide5" && <span>Slide 5</span>}
+                  {item === "slide6" && <span>Slide 6</span>}
+                  <img
+                    onClick={(event) => closeButton(event, item)}
+                    src={cross}
+                    className={styles.close}
+                  />
+                </button>
+              );
+            })}
+            {/* <button
               onClick={() => selectSlide("slide5")}
               id={styles.slide5}
               className={styles.slide}
             >
+              <img src={cross} className={styles.close} />
               Slide 5
             </button>
             <button
@@ -319,57 +364,284 @@ function AddStory() {
               id={styles.slide6}
               className={styles.slide}
             >
+              <img src={cross} className={styles.close} />
               Slide 6
-            </button>
+            </button> */}
 
-            <button
-              // onClick={() => handleSubmit()}
-              className={styles.slide}
-            >
+            <button onClick={() => addSlide()} className={styles.slide}>
               Add +
             </button>
           </div>
           <div className={styles.storyForm}>
-            <div className={styles.formGroup}>
-              <label className={styles.label} htmlFor="heading">
-                Heading:
-              </label>
-              <input
-                className={styles.input}
-                type="text"
-                name="heading"
-                // value={formData.companyName}
-                onChange={(e) => handleChange(e)}
-                placeholder="Your heading"
-              />
-            </div>
+            {slideNumber === "slide1" && (
+              <>
+                <div className={styles.formGroup}>
+                  <label className={styles.label} htmlFor="heading">
+                    Heading:
+                  </label>
+                  <input
+                    className={styles.input}
+                    type="text"
+                    name="heading"
+                    value={storyData.slide1[0]}
+                    onChange={(e) => handleChange(e)}
+                    placeholder="Your heading"
+                  />
+                </div>
 
-            <div className={styles.formGroup}>
-              <label className={styles.label} htmlFor="description">
-                Description:
-              </label>
-              <textarea
-                className={styles.input}
-                name="description"
-                // value={formData.about}
-                onChange={(e) => handleChange(e)}
-                placeholder="Story Description"
-              />
-            </div>
+                <div className={styles.formGroup}>
+                  <label className={styles.label} htmlFor="description">
+                    Description:
+                  </label>
+                  <textarea
+                    className={styles.input}
+                    name="description"
+                    value={storyData.slide1[1]}
+                    onChange={(e) => handleChange(e)}
+                    placeholder="Story Description"
+                  />
+                </div>
 
-            <div className={styles.formGroup}>
-              <label className={styles.label} htmlFor="image">
-                Image:
-              </label>
-              <input
-                className={styles.input}
-                type="text"
-                name="image"
-                // value={formData.logoUrl}
-                onChange={(e) => handleChange(e)}
-                placeholder="Add Image url"
-              />
-            </div>
+                <div className={styles.formGroup}>
+                  <label className={styles.label} htmlFor="image">
+                    Image:
+                  </label>
+                  <input
+                    className={styles.input}
+                    type="text"
+                    name="image"
+                    value={storyData.slide1[2]}
+                    onChange={(e) => handleChange(e)}
+                    placeholder="Add Image url"
+                  />
+                </div>
+              </>
+            )}
+
+            {slideNumber === "slide2" && (
+              <>
+                <div className={styles.formGroup}>
+                  <label className={styles.label} htmlFor="heading">
+                    Heading:
+                  </label>
+                  <input
+                    className={styles.input}
+                    type="text"
+                    name="heading"
+                    value={storyData.slide2[0]}
+                    onChange={(e) => handleChange(e)}
+                    placeholder="Your heading"
+                  />
+                </div>
+
+                <div className={styles.formGroup}>
+                  <label className={styles.label} htmlFor="description">
+                    Description:
+                  </label>
+                  <textarea
+                    className={styles.input}
+                    name="description"
+                    value={storyData.slide2[1]}
+                    onChange={(e) => handleChange(e)}
+                    placeholder="Story Description"
+                  />
+                </div>
+
+                <div className={styles.formGroup}>
+                  <label className={styles.label} htmlFor="image">
+                    Image:
+                  </label>
+                  <input
+                    className={styles.input}
+                    type="text"
+                    name="image"
+                    value={storyData.slide2[2]}
+                    onChange={(e) => handleChange(e)}
+                    placeholder="Add Image url"
+                  />
+                </div>
+              </>
+            )}
+
+            {slideNumber === "slide3" && (
+              <>
+                <div className={styles.formGroup}>
+                  <label className={styles.label} htmlFor="heading">
+                    Heading:
+                  </label>
+                  <input
+                    className={styles.input}
+                    type="text"
+                    name="heading"
+                    value={storyData.slide3[0]}
+                    onChange={(e) => handleChange(e)}
+                    placeholder="Your heading"
+                  />
+                </div>
+
+                <div className={styles.formGroup}>
+                  <label className={styles.label} htmlFor="description">
+                    Description:
+                  </label>
+                  <textarea
+                    className={styles.input}
+                    name="description"
+                    value={storyData.slide3[1]}
+                    onChange={(e) => handleChange(e)}
+                    placeholder="Story Description"
+                  />
+                </div>
+
+                <div className={styles.formGroup}>
+                  <label className={styles.label} htmlFor="image">
+                    Image:
+                  </label>
+                  <input
+                    className={styles.input}
+                    type="text"
+                    name="image"
+                    value={storyData.slide3[2]}
+                    onChange={(e) => handleChange(e)}
+                    placeholder="Add Image url"
+                  />
+                </div>
+              </>
+            )}
+
+            {slideNumber === "slide4" && (
+              <>
+                <div className={styles.formGroup}>
+                  <label className={styles.label} htmlFor="heading">
+                    Heading:
+                  </label>
+                  <input
+                    className={styles.input}
+                    type="text"
+                    name="heading"
+                    value={storyData.slide4[0]}
+                    onChange={(e) => handleChange(e)}
+                    placeholder="Your heading"
+                  />
+                </div>
+
+                <div className={styles.formGroup}>
+                  <label className={styles.label} htmlFor="description">
+                    Description:
+                  </label>
+                  <textarea
+                    className={styles.input}
+                    name="description"
+                    value={storyData.slide4[1]}
+                    onChange={(e) => handleChange(e)}
+                    placeholder="Story Description"
+                  />
+                </div>
+
+                <div className={styles.formGroup}>
+                  <label className={styles.label} htmlFor="image">
+                    Image:
+                  </label>
+                  <input
+                    className={styles.input}
+                    type="text"
+                    name="image"
+                    value={storyData.slide4[2]}
+                    onChange={(e) => handleChange(e)}
+                    placeholder="Add Image url"
+                  />
+                </div>
+              </>
+            )}
+
+            {slideNumber === "slide5" && (
+              <>
+                <div className={styles.formGroup}>
+                  <label className={styles.label} htmlFor="heading">
+                    Heading:
+                  </label>
+                  <input
+                    className={styles.input}
+                    type="text"
+                    name="heading"
+                    value={storyData.slide5[0]}
+                    onChange={(e) => handleChange(e)}
+                    placeholder="Your heading"
+                  />
+                </div>
+
+                <div className={styles.formGroup}>
+                  <label className={styles.label} htmlFor="description">
+                    Description:
+                  </label>
+                  <textarea
+                    className={styles.input}
+                    name="description"
+                    value={storyData.slide5[1]}
+                    onChange={(e) => handleChange(e)}
+                    placeholder="Story Description"
+                  />
+                </div>
+
+                <div className={styles.formGroup}>
+                  <label className={styles.label} htmlFor="image">
+                    Image:
+                  </label>
+                  <input
+                    className={styles.input}
+                    type="text"
+                    name="image"
+                    value={storyData.slide5[2]}
+                    onChange={(e) => handleChange(e)}
+                    placeholder="Add Image url"
+                  />
+                </div>
+              </>
+            )}
+
+            {slideNumber === "slide6" && (
+              <>
+                <div className={styles.formGroup}>
+                  <label className={styles.label} htmlFor="heading">
+                    Heading:
+                  </label>
+                  <input
+                    className={styles.input}
+                    type="text"
+                    name="heading"
+                    value={storyData.slide6[0]}
+                    onChange={(e) => handleChange(e)}
+                    placeholder="Your heading"
+                  />
+                </div>
+
+                <div className={styles.formGroup}>
+                  <label className={styles.label} htmlFor="description">
+                    Description:
+                  </label>
+                  <textarea
+                    className={styles.input}
+                    name="description"
+                    value={storyData.slide6[1]}
+                    onChange={(e) => handleChange(e)}
+                    placeholder="Story Description"
+                  />
+                </div>
+
+                <div className={styles.formGroup}>
+                  <label className={styles.label} htmlFor="image">
+                    Image:
+                  </label>
+                  <input
+                    className={styles.input}
+                    type="text"
+                    name="image"
+                    value={storyData.slide6[2]}
+                    onChange={(e) => handleChange(e)}
+                    placeholder="Add Image url"
+                  />
+                </div>
+              </>
+            )}
 
             <div className={styles.formGroup}>
               <label className={styles.label} htmlFor="category">
@@ -379,7 +651,7 @@ function AddStory() {
                 className={styles.select}
                 type="text"
                 name="category"
-                // value={storyData.category}
+                value={storyData.category}
                 onChange={(e) => handleCategoryChange(e)}
               >
                 <option className={styles.option} disabled selected>
