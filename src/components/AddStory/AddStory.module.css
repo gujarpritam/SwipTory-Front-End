@@ -27,7 +27,7 @@
 
 .subContainer{
   height: 70%;
-  width: 70%;
+  width: 80%;
   /* position: relative; */
   border: 1px solid red;
   display:  flex;

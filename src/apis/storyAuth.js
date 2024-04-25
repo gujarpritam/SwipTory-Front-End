@@ -26,14 +26,6 @@ export const addPost = async ({
 
     console.log("responseData", response);
 
-    // localStorage.setItem("swiptoryToken", response?.data?.swiptoryToken);
-    // localStorage.setItem("username", response?.data?.username);
-
-    // let result;
-    // if (response?.data?.username) {
-    //   result = response?.data?.username;
-    // }
-
     // return result;
   } catch (error) {
     console.log(error);
@@ -71,6 +63,24 @@ export const getStory = async (filter) => {
     console.log("response?.data.data", response?.data?.data);
 
     return response?.data?.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const updateStoryPostById = async (id, storyData) => {
+  try {
+    const reqUrl = `${process.env.REACT_APP_BACKEND_URL}/story/update?id=${
+      id || ""
+    }&storyData=${storyData}`;
+
+    const token = localStorage.getItem("swiptoryToken");
+
+    console.log("id", id, "storyData", storyData);
+    axios.defaults.headers.common["Authorization"] = token;
+    const response = await axios.put(reqUrl, storyData);
+
+    // return response.data;
   } catch (error) {
     console.log(error);
   }

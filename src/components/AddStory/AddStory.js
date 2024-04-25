@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { unSetAddStory } from "../../slices/addStorySlice";
 import { DEFAULT_SKILLS } from "../../utils/constant";
 import { setSlide, unSetSlide } from "../../slices/slideSlice";
-import { addPost } from "../../apis/storyAuth";
+import { addPost, updateStoryPostById } from "../../apis/storyAuth";
 import { unSetEditPost } from "../../slices/editPostSlice";
 import cross from "../../assets/icons/cross.png";
 
@@ -46,7 +46,9 @@ function AddStory() {
       if (e.target.name === "heading") {
         console.log("handleEvent", e);
         let arr = storyData[slideNumber];
+        console.log("typeof arr", typeof arr);
         console.log("arr", arr);
+        arr = Array.from(arr);
         arr[0] = e.target.value;
 
         // if (arr[0].trim().length > 0) {
@@ -56,6 +58,7 @@ function AddStory() {
         console.log("handleEvent", e);
         let arr = storyData[slideNumber];
         console.log("arr", arr);
+        arr = Array.from(arr);
         arr[1] = e.target.value;
 
         // if (arr[1].trim().length > 0) {
@@ -65,6 +68,7 @@ function AddStory() {
         console.log("handleEvent", e);
         let arr = storyData[slideNumber];
         console.log("arr", arr);
+        arr = Array.from(arr);
 
         arr[2] = e.target.value;
         // if (arr[2].trim().length > 0) {
@@ -242,7 +246,9 @@ function AddStory() {
       return;
     }
 
-    console.log(storyData);
+    console.log("storyData", storyData);
+    console.log("storyDetails.category", storyDetails.category);
+    console.log("storyDetails._id", storyDetails?._id);
 
     if (isEmptyField()) {
       document
@@ -251,24 +257,17 @@ function AddStory() {
       return;
     }
 
-    // if (
-    //   (storyData.slide1.length < 3 && storyData.slide1.length > 0) ||
-    //   (storyData.slide2.length < 3 && storyData.slide2.length > 0) ||
-    //   (storyData.slide3.length < 3 && storyData.slide3.length > 0) ||
-    //   (storyData.slide4.length < 3 && storyData.slide4.length > 0) ||
-    //   (storyData.slide5.length < 3 && storyData.slide5.length > 0) ||
-    //   (storyData.slide6.length < 3 && storyData.slide6.length > 0)
-    // ) {
-    //   document
-    //     .getElementsByClassName(styles.inputError)[0]
-    //     .setAttribute("style", `display: flex;`);
-    //   return;
-    // }
+    if (storyDetails?.category) {
+      await updateStoryPostById(storyDetails?._id, storyData);
+      dispatch(unSetSlide());
+      dispatch(unSetEditPost());
+      return;
+    }
 
     const result = await addPost(storyData);
+
     dispatch(unSetAddStory());
     dispatch(unSetSlide());
-    dispatch(unSetEditPost());
     navigate("/");
     // console.log("result on register", result);
     // if (result) {
@@ -684,7 +683,7 @@ function AddStory() {
             </div>
 
             <button onClick={() => handleSubmit()} className={styles.post}>
-              Post
+              {storyDetails?.category ? "Edit" : "Post"}
             </button>
           </div>
         </div>
