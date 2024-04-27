@@ -1,0 +1,93 @@
+.container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  /* border: 1px solid red; */
+  position: fixed;
+  top: 0px;
+  opacity: 0.95;
+  background-color: black;
+  z-index: 100;
+}
+
+/* .subContainer{
+  height: 60vh;
+  width: 80vh;
+  border: 1px solid black;
+  display:  flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background-color: white;
+  opacity: unset;
+  z-index: 100;
+} */
+
+.story{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin: 2vh 4vh;
+  /* padding: 2vh 2vh; */
+  height: 60vh;
+  width: 50vh;
+  border-radius: 15px;
+  /* background: black; */
+  opacity: 1;
+  position: relative;
+  /* top: 0px; */
+  color: white;
+  /* border: 1px solid red; */
+  box-sizing: border-box;
+}
+
+.picture{
+  height: 100%;
+  width: 100%;
+  border-radius: 15px;
+  opacity: 1;
+  position: absolute;
+  top: 0px;
+  z-index: -1;
+}
+
+.topSubContainer{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1vh;
+  /* border: 1px solid red; */
+}
+
+.bottomSubContainer{
+/* position: relative;
+bottom: 0px; */
+}
+
+.images{
+  padding: 1vh 2vh;
+  cursor: pointer;
+}
+
+.description{
+  font-size: small;
+  font-weight: lighter;
+  margin-bottom: 1vh;
+}
+
+.heading, .description{
+  padding: 1vh 2vh;
+  
+}
+
+.heading{
+  font-size: larger;
+}
+
+.leftSwipe, .rightSwipe{
+  cursor: pointer;
+}

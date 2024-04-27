@@ -10,20 +10,26 @@ import educationPicture from "../../assets/images/education.jpg";
 import edit from "../../assets/icons/edit.jpg";
 import { getAllStories, getStory } from "../../apis/storyAuth";
 import AddStory from "../AddStory/AddStory";
+import Story from "../Story/Story";
 import { setEditPost } from "../../slices/editPostSlice";
+import { setStory } from "../../slices/storySlice";
 
 function Post() {
   const dispatch = useDispatch();
   const userState = useSelector((state) => state.user);
   const editPostState = useSelector((state) => state.editPost);
+  const storyState = useSelector((state) => state.story);
+  const loginState = useSelector((state) => state.login);
+  // const triggerState = useSelector((state) => state.trigger);
+  const [loginValue, setLoginValue] = useState(loginState.value);
 
   const [storyDetails, setStoryDetails] = useState([]);
   const [itemCategory, setItemCategory] = useState("");
-  // const [postDetails, setPostDetails] = useState();
+  const [postDetails, setPostDetails] = useState([]);
 
   console.log("storyDetails", storyDetails);
-  // console.log("itemCategory", itemCategory);
-  // console.log("Cat", storyDetails?.data);
+  console.log("postDetails", postDetails);
+  console.log("loginValue", loginValue);
   // console.log("all", storyDetails?.foodData);
 
   const fetchAllStories = async (data) => {
@@ -46,9 +52,20 @@ function Post() {
     dispatch(setEditPost(result));
   };
 
+  const fetchStoryPost = async (id) => {
+    const result = await getStory({ id: id });
+    console.log("result", result);
+    // setPostDetails(result);
+    dispatch(setStory(result));
+  };
+
   useEffect(() => {
     fetchAllStories("All");
   }, []);
+
+  useEffect(() => {
+    fetchAllStories("All");
+  }, [loginValue]);
 
   return (
     <>
@@ -115,7 +132,11 @@ function Post() {
                           {item["description"]}
                         </p>
 
-                        <img src={item["imgUrl"]} className={styles.picture} />
+                        <img
+                          onClick={() => fetchStoryPost(item["id"])}
+                          src={item["imgUrl"]}
+                          className={styles.picture}
+                        />
                       </div>
                     );
                   })}
@@ -143,6 +164,7 @@ function Post() {
                             Edit
                           </button>
                           <img
+                            onClick={() => fetchStoryPost(item["id"])}
                             src={item["imgUrl"]}
                             className={styles.picture}
                           />
@@ -167,6 +189,7 @@ function Post() {
                             {item["description"]}
                           </p>
                           <img
+                            onClick={() => fetchStoryPost(item["id"])}
                             src={item["imgUrl"]}
                             className={styles.picture}
                           />
@@ -191,6 +214,7 @@ function Post() {
                             {item["description"]}
                           </p>
                           <img
+                            onClick={() => fetchStoryPost(item["id"])}
                             src={item["imgUrl"]}
                             className={styles.picture}
                           />
@@ -215,6 +239,7 @@ function Post() {
                             {item["description"]}
                           </p>
                           <img
+                            onClick={() => fetchStoryPost(item["id"])}
                             src={item["imgUrl"]}
                             className={styles.picture}
                           />
@@ -239,6 +264,7 @@ function Post() {
                             {item["description"]}
                           </p>
                           <img
+                            onClick={() => fetchStoryPost(item["id"])}
                             src={item["imgUrl"]}
                             className={styles.picture}
                           />
@@ -263,6 +289,7 @@ function Post() {
                             {item["description"]}
                           </p>
                           <img
+                            onClick={() => fetchStoryPost(item["id"])}
                             src={item["imgUrl"]}
                             className={styles.picture}
                           />
@@ -279,6 +306,7 @@ function Post() {
         </div>
       </div>
       {editPostState?.value !== null && <AddStory />}
+      {storyState.value !== null && <Story />}
     </>
   );
 }

@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./Login.module.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { unSetLogin } from "../../slices/loginSlice";
 import { loginUser } from "../../apis/userAuth";
 import { setUser } from "../../slices/userSlice";
+import { setTrigger, unSetTrigger } from "../../slices/triggerSlice";
 
 function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const triggerState = useSelector((state) => state.triggerPoint);
 
   const [userData, setUserData] = useState({
     username: "",
@@ -31,8 +33,11 @@ function Login() {
     console.log("result on login", result);
 
     if (result) {
+      dispatch(setTrigger());
+      console.log("setTrigger", triggerState.value);
       dispatch(setUser(result));
       dispatch(unSetLogin());
+      dispatch(unSetTrigger());
       navigate("/");
     }
 

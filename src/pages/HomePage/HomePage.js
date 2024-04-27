@@ -9,6 +9,9 @@ function HomePage() {
   const loginState = useSelector((state) => state.login);
   const registerState = useSelector((state) => state.registration);
   const storyPost = useSelector((state) => state.addStory);
+  // const triggerState = useSelector((state) => state.trigger);
+
+  // console.log("triggerState.value", triggerState.value);
 
   if (
     loginState?.value === 1 ||
@@ -23,6 +26,7 @@ function HomePage() {
   return (
     <div className={styles.container}>
       <Navbar />
+      {/* {(loginState.value === 0 && <Post />) || <Post />} */}
       <Post />
     </div>
   );

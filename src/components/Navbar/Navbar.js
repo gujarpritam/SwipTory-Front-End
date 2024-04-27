@@ -8,7 +8,7 @@ import { setRegistration } from "../../slices/registrationSlice";
 import { setLogin } from "../../slices/loginSlice";
 import { unSetUser } from "../../slices/userSlice";
 import { setAddStory } from "../../slices/addStorySlice";
-// import { setUserStory } from "../../slices/userStorySlice";
+import { setTrigger, unSetTrigger } from "../../slices/triggerSlice";
 import bookmark from "../../assets/icons/bookmark.png";
 import hamburger from "../../assets/icons/hamburger.png";
 import userPicture from "../../assets/images/user-picture.png";
@@ -42,6 +42,8 @@ function Navbar() {
       .getElementsByClassName(styles.userInfo)[0]
       .setAttribute("style", `display: none;`);
 
+    dispatch(setTrigger());
+    dispatch(unSetTrigger());
     dispatch(unSetUser());
   };
 

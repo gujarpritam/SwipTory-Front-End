@@ -8,6 +8,7 @@ import { setSlide, unSetSlide } from "../../slices/slideSlice";
 import { addPost, updateStoryPostById } from "../../apis/storyAuth";
 import { unSetEditPost } from "../../slices/editPostSlice";
 import cross from "../../assets/icons/cross.png";
+import { setTrigger, unSetTrigger } from "../../slices/triggerSlice";
 
 function AddStory() {
   const slideState = useSelector((state) => state.slide);
@@ -196,37 +197,37 @@ function AddStory() {
   const isEmptyField = () => {
     let l1, l2, l3, l4, l5, l6;
     storyData.slide1.forEach((element) => {
-      if (element.trim().length === 0) {
+      if (element?.trim().length === 0) {
         l1 = true;
       }
     });
 
     storyData.slide2.forEach((element) => {
-      if (element.trim().length === 0) {
+      if (element?.trim().length === 0) {
         l2 = true;
       }
     });
 
     storyData.slide3.forEach((element) => {
-      if (element.trim().length === 0) {
+      if (element?.trim().length === 0) {
         l3 = true;
       }
     });
 
     storyData.slide4.forEach((element) => {
-      if (element.trim().length === 0) {
+      if (element?.trim().length === 0) {
         l4 = true;
       }
     });
 
     storyData.slide5.forEach((element) => {
-      if (element.trim().length === 0) {
+      if (element?.trim().length === 0) {
         l5 = true;
       }
     });
 
     storyData.slide6.forEach((element) => {
-      if (element.trim().length === 0) {
+      if (element?.trim().length === 0) {
         l6 = true;
       }
     });
@@ -247,7 +248,7 @@ function AddStory() {
     }
 
     console.log("storyData", storyData);
-    console.log("storyDetails.category", storyDetails.category);
+    // console.log("storyDetails.category", storyDetails.category);
     console.log("storyDetails._id", storyDetails?._id);
 
     if (isEmptyField()) {
@@ -260,6 +261,8 @@ function AddStory() {
     if (storyDetails?.category) {
       await updateStoryPostById(storyDetails?._id, storyData);
       dispatch(unSetSlide());
+      dispatch(setTrigger());
+      dispatch(unSetTrigger());
       dispatch(unSetEditPost());
       return;
     }
@@ -267,6 +270,8 @@ function AddStory() {
     const result = await addPost(storyData);
 
     dispatch(unSetAddStory());
+    dispatch(setTrigger());
+    dispatch(unSetTrigger());
     dispatch(unSetSlide());
     navigate("/");
     // console.log("result on register", result);
