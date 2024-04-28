@@ -13,6 +13,7 @@ import "swiper/css";
 import "swiper/swiper-bundle.css";
 import { setLogin } from "../../slices/loginSlice";
 import Login from "../Login/Login";
+import { updateLikesOnStoryPost, getLikesOnStory } from "../../apis/storyAuth";
 // import "swiper/css/navigation";
 // import "swiper/css/pagination";
 // import "swiper/css/scrollbar";
@@ -23,9 +24,11 @@ function Story() {
   const userState = useSelector((state) => state.user);
   const loginState = useSelector((state) => state.login);
 
+  const [isLoggedIn, setIsLoggedIn] = useState(loginState.value);
   const [storyDetails, setStoryDetails] = useState(storyState.value);
   const [storySlider, setStorySlider] = useState([]);
   const [isLiked, setIsLiked] = useState(false);
+  const [likesCount, setLikesCount] = useState();
 
   console.log("StoryDetails", storyDetails);
 
@@ -53,8 +56,11 @@ function Story() {
     setStorySlider([...arr]);
   };
 
-  const isStoryLiked = (storyId) => {
-    console.log("id", storyId);
+  const getLikes = async () => {
+    const result = await getLikesOnStory(storyDetails?._id, userState?.value);
+
+    setLikesCount(result?.likesCount);
+    setIsLiked(result?.isLiked);
   };
 
   useEffect(() => {
@@ -62,15 +68,23 @@ function Story() {
   }, [storyDetails]);
 
   useEffect(() => {
-    isStoryLiked(storyDetails?._id);
-  }, []);
+    getLikes();
+  }, [loginState.value]);
 
-  const handleLike = (likeStatus) => {
+  useEffect(() => {
+    getLikes();
+  }, [isLoggedIn]);
+
+  const handleLike = async (likeStatus) => {
     console.log("likeStatus", likeStatus);
     if (userState.value === null) {
       dispatch(setLogin());
       return;
     }
+
+    const result = await updateLikesOnStoryPost(storyDetails?._id, likeStatus);
+
+    getLikes();
   };
 
   console.log("storySlider", storySlider);
@@ -115,19 +129,22 @@ function Story() {
                   <p className={styles.description}>{item[1]}</p>
                   <div className={styles.imgContainer}>
                     <img src={storyBookmark} />
-                    {isLiked === false ? (
-                      <img
-                        id="unliked"
-                        src={unLike}
-                        onClick={(e) => handleLike(e.target.id)}
-                      />
-                    ) : (
-                      <img
-                        id="liked"
-                        src={liked}
-                        onClick={(e) => handleLike(e.target.id)}
-                      />
-                    )}
+                    <div>
+                      {isLiked === false ? (
+                        <img
+                          id="unliked"
+                          src={unLike}
+                          onClick={(e) => handleLike(e.target.id)}
+                        />
+                      ) : (
+                        <img
+                          id="liked"
+                          src={liked}
+                          onClick={(e) => handleLike(e.target.id)}
+                        />
+                      )}
+                      &nbsp;{likesCount}
+                    </div>
                   </div>
                   <img src={item[2]} className={styles.picture} />
                 </div>

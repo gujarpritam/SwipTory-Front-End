@@ -85,3 +85,38 @@ export const updateStoryPostById = async (id, storyData) => {
     console.log(error);
   }
 };
+
+export const updateLikesOnStoryPost = async (storyId, likeStatus) => {
+  try {
+    const reqUrl = `${
+      process.env.REACT_APP_BACKEND_URL
+    }/story/update/likes?id=${storyId || ""}&likeStatus=${likeStatus || ""}`;
+
+    const token = localStorage.getItem("swiptoryToken");
+
+    console.log("id", storyId, "likeStatus", likeStatus, "token", token);
+    axios.defaults.headers.common["Authorization"] = token;
+    const response = await axios.put(reqUrl);
+
+    // return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getLikesOnStory = async (storyId, username) => {
+  try {
+    const reqUrl = `${process.env.REACT_APP_BACKEND_URL}/story/getLikes?id=${
+      storyId || ""
+    }&username=${username || ""}`;
+
+    console.log("id", storyId, "username", username);
+    const response = await axios.get(reqUrl);
+
+    console.log("response?.data", response?.data);
+
+    return response?.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
