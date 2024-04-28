@@ -19,9 +19,10 @@ function Post() {
   const userState = useSelector((state) => state.user);
   const editPostState = useSelector((state) => state.editPost);
   const storyState = useSelector((state) => state.story);
-  const loginState = useSelector((state) => state.login);
+  const addStoryState = useSelector((state) => state.addStory);
+  // const loginState = useSelector((state) => state.login);
   // const triggerState = useSelector((state) => state.trigger);
-  const [loginValue, setLoginValue] = useState(loginState.value);
+  // const [loginValue, setLoginValue] = useState(loginState.value);
 
   const [storyDetails, setStoryDetails] = useState([]);
   const [itemCategory, setItemCategory] = useState("");
@@ -29,7 +30,7 @@ function Post() {
 
   console.log("storyDetails", storyDetails);
   console.log("postDetails", postDetails);
-  console.log("loginValue", loginValue);
+  // console.log("loginValue", loginValue);
   // console.log("all", storyDetails?.foodData);
 
   const fetchAllStories = async (data) => {
@@ -65,7 +66,15 @@ function Post() {
 
   useEffect(() => {
     fetchAllStories("All");
-  }, [loginValue]);
+  }, [userState.value]);
+
+  useEffect(() => {
+    fetchAllStories("All");
+  }, [editPostState.value]);
+
+  useEffect(() => {
+    fetchAllStories("All");
+  }, [addStoryState.value]);
 
   return (
     <>

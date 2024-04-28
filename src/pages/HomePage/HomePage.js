@@ -26,7 +26,7 @@ function HomePage() {
   return (
     <div className={styles.container}>
       <Navbar />
-      {/* {(loginState.value === 0 && <Post />) || <Post />} */}
+
       <Post />
     </div>
   );
