@@ -3,13 +3,16 @@ import { useDispatch, useSelector } from "react-redux";
 import styles from "./Story.module.css";
 import close from "../../assets/icons/close.png";
 import share from "../../assets/icons/share.png";
-import leftSwipe from "../../assets/icons/left-swipe.png";
-import rightSwipe from "../../assets/icons/right-swipe.png";
+import unLike from "../../assets/icons/unlike.png";
+import liked from "../../assets/icons/liked.png";
+import storyBookmark from "../../assets/icons/story-bookmark.png";
 import { unSetStory } from "../../slices/storySlice";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
 import "swiper/css";
 import "swiper/swiper-bundle.css";
+import { setLogin } from "../../slices/loginSlice";
+import Login from "../Login/Login";
 // import "swiper/css/navigation";
 // import "swiper/css/pagination";
 // import "swiper/css/scrollbar";
@@ -17,8 +20,12 @@ import "swiper/swiper-bundle.css";
 function Story() {
   const dispatch = useDispatch();
   const storyState = useSelector((state) => state.story);
+  const userState = useSelector((state) => state.user);
+  const loginState = useSelector((state) => state.login);
+
   const [storyDetails, setStoryDetails] = useState(storyState.value);
   const [storySlider, setStorySlider] = useState([]);
+  const [isLiked, setIsLiked] = useState(false);
 
   console.log("StoryDetails", storyDetails);
 
@@ -46,9 +53,25 @@ function Story() {
     setStorySlider([...arr]);
   };
 
+  const isStoryLiked = (storyId) => {
+    console.log("id", storyId);
+  };
+
   useEffect(() => {
     sliderArray();
   }, [storyDetails]);
+
+  useEffect(() => {
+    isStoryLiked(storyDetails?._id);
+  }, []);
+
+  const handleLike = (likeStatus) => {
+    console.log("likeStatus", likeStatus);
+    if (userState.value === null) {
+      dispatch(setLogin());
+      return;
+    }
+  };
 
   console.log("storySlider", storySlider);
 
@@ -90,6 +113,22 @@ function Story() {
                 <div className={styles.bottomSubContainer}>
                   <h4 className={styles.heading}>{item[0]}</h4>
                   <p className={styles.description}>{item[1]}</p>
+                  <div className={styles.imgContainer}>
+                    <img src={storyBookmark} />
+                    {isLiked === false ? (
+                      <img
+                        id="unliked"
+                        src={unLike}
+                        onClick={(e) => handleLike(e.target.id)}
+                      />
+                    ) : (
+                      <img
+                        id="liked"
+                        src={liked}
+                        onClick={(e) => handleLike(e.target.id)}
+                      />
+                    )}
+                  </div>
                   <img src={item[2]} className={styles.picture} />
                 </div>
               </div>
@@ -97,7 +136,7 @@ function Story() {
           );
         })}
       </Swiper>
-      {/* </div> */}
+      {loginState.value === 1 && <Login />}
     </div>
   );
 }

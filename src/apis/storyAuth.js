@@ -72,7 +72,7 @@ export const updateStoryPostById = async (id, storyData) => {
   try {
     const reqUrl = `${process.env.REACT_APP_BACKEND_URL}/story/update?id=${
       id || ""
-    }&storyData=${storyData}`;
+    }`;
 
     const token = localStorage.getItem("swiptoryToken");
 
