@@ -120,3 +120,63 @@ export const getLikesOnStory = async (storyId, username) => {
     console.log(error);
   }
 };
+
+export const updateBookmarkOnStory = async (storyId, bookmarkStatus) => {
+  try {
+    const reqUrl = `${
+      process.env.REACT_APP_BACKEND_URL
+    }/story/update/bookmark?id=${storyId || ""}&bookmarkStatus=${
+      bookmarkStatus || ""
+    }`;
+
+    const token = localStorage.getItem("swiptoryToken");
+
+    console.log(
+      "id",
+      storyId,
+      "bookmarkStatus",
+      bookmarkStatus,
+      "token",
+      token
+    );
+    axios.defaults.headers.common["Authorization"] = token;
+    const response = await axios.put(reqUrl);
+
+    // return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getBookmarkOnStory = async (storyId, username) => {
+  try {
+    const reqUrl = `${process.env.REACT_APP_BACKEND_URL}/story/getBookmark?id=${
+      storyId || ""
+    }&username=${username || ""}`;
+
+    console.log("id", storyId, "username", username);
+    const response = await axios.get(reqUrl);
+
+    console.log("response?.data", response?.data);
+
+    return response?.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getBookmarkedStories = async (filter) => {
+  try {
+    const reqUrl = `${
+      process.env.REACT_APP_BACKEND_URL
+    }/story/get/bookmarks?user=${filter?.user || ""}`;
+
+    const response = await axios.get(reqUrl);
+
+    console.log("response?.data", response?.data);
+
+    return response?.data;
+  } catch (error) {
+    console.log(error);
+  }
+};

@@ -13,12 +13,12 @@ align-items: center;
   width: 98vw;
   margin-top: 2vh;
   /* overflow-y: hidden; */
-  border: 1px solid red;
+  /* border: 1px solid red; */
 }
 
 .subContainer{
   width: 98vw;
-  border: 1px solid red;
+  /* border: 1px solid red; */
 }
 .categoryHead{
   /* position: absolute;
@@ -124,4 +124,5 @@ align-items: center;
 
 .noStory{
   margin-top: 5vh;
+  margin-bottom: 5vh;
 }

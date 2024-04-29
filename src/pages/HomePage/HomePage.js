@@ -4,12 +4,13 @@ import { useSelector } from "react-redux";
 import Navbar from "../../components/Navbar/Navbar";
 import Post from "../../components/Post/Post";
 import styles from "./HomePage.module.css";
+import Bookmark from "../../components/Bookmark/Bookmark";
 
 function HomePage() {
   const loginState = useSelector((state) => state.login);
   const registerState = useSelector((state) => state.registration);
   const storyPost = useSelector((state) => state.addStory);
-  // const triggerState = useSelector((state) => state.trigger);
+  const bookmarkState = useSelector((state) => state.bookmark);
 
   // console.log("triggerState.value", triggerState.value);
 
@@ -26,8 +27,8 @@ function HomePage() {
   return (
     <div className={styles.container}>
       <Navbar />
-
-      <Post />
+      {bookmarkState.value === 0 && <Post />}
+      {bookmarkState.value === 1 && <Bookmark />}
     </div>
   );
 }

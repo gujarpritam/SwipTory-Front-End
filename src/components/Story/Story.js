@@ -6,6 +6,7 @@ import share from "../../assets/icons/share.png";
 import unLike from "../../assets/icons/unlike.png";
 import liked from "../../assets/icons/liked.png";
 import storyBookmark from "../../assets/icons/story-bookmark.png";
+import storyBookmarked from "../../assets/icons/bookmarked.png";
 import { unSetStory } from "../../slices/storySlice";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
@@ -13,7 +14,12 @@ import "swiper/css";
 import "swiper/swiper-bundle.css";
 import { setLogin } from "../../slices/loginSlice";
 import Login from "../Login/Login";
-import { updateLikesOnStoryPost, getLikesOnStory } from "../../apis/storyAuth";
+import {
+  updateLikesOnStoryPost,
+  getLikesOnStory,
+  updateBookmarkOnStory,
+  getBookmarkOnStory,
+} from "../../apis/storyAuth";
 // import "swiper/css/navigation";
 // import "swiper/css/pagination";
 // import "swiper/css/scrollbar";
@@ -24,11 +30,12 @@ function Story() {
   const userState = useSelector((state) => state.user);
   const loginState = useSelector((state) => state.login);
 
-  const [isLoggedIn, setIsLoggedIn] = useState(loginState.value);
+  // const [isLoggedIn, setIsLoggedIn] = useState(loginState.value);
   const [storyDetails, setStoryDetails] = useState(storyState.value);
   const [storySlider, setStorySlider] = useState([]);
   const [isLiked, setIsLiked] = useState(false);
   const [likesCount, setLikesCount] = useState();
+  const [isBookmarked, setIsBookmarked] = useState(false);
 
   console.log("StoryDetails", storyDetails);
 
@@ -63,17 +70,28 @@ function Story() {
     setIsLiked(result?.isLiked);
   };
 
+  const getBookmark = async () => {
+    const result = await getBookmarkOnStory(
+      storyDetails?._id,
+      userState?.value
+    );
+
+    setIsBookmarked(result?.isBookmarked);
+  };
+
   useEffect(() => {
     sliderArray();
   }, [storyDetails]);
 
   useEffect(() => {
     getLikes();
+    getBookmark();
   }, [loginState.value]);
 
   useEffect(() => {
     getLikes();
-  }, [isLoggedIn]);
+    getBookmark();
+  }, []);
 
   const handleLike = async (likeStatus) => {
     console.log("likeStatus", likeStatus);
@@ -83,22 +101,32 @@ function Story() {
     }
 
     const result = await updateLikesOnStoryPost(storyDetails?._id, likeStatus);
-
     getLikes();
+  };
+
+  const handleBookmark = async (bookmarkStatus) => {
+    console.log("bookmarkStatus", bookmarkStatus);
+    if (userState.value === null) {
+      dispatch(setLogin());
+      return;
+    }
+
+    const result = await updateBookmarkOnStory(
+      storyDetails?._id,
+      bookmarkStatus
+    );
+    getBookmark();
   };
 
   console.log("storySlider", storySlider);
 
   return (
     <div className={styles.container}>
-      {/* <div className={styles.subContainer}> */}
       <Swiper
         modules={[Navigation, A11y]}
         spaceBetween={50}
         slidesPerView={1}
         navigation
-        // pagination={{ clickable: true }}
-        // scrollbar={{ draggable: true }}
         style={{
           width: "90vh",
           display: "flex",
@@ -128,7 +156,20 @@ function Story() {
                   <h4 className={styles.heading}>{item[0]}</h4>
                   <p className={styles.description}>{item[1]}</p>
                   <div className={styles.imgContainer}>
-                    <img src={storyBookmark} />
+                    {isBookmarked === false ? (
+                      <img
+                        id="not-bookmarked"
+                        src={storyBookmark}
+                        onClick={(e) => handleBookmark(e.target.id)}
+                      />
+                    ) : (
+                      <img
+                        id="bookmarked"
+                        src={storyBookmarked}
+                        onClick={(e) => handleBookmark(e.target.id)}
+                      />
+                    )}
+
                     <div>
                       {isLiked === false ? (
                         <img
@@ -143,7 +184,7 @@ function Story() {
                           onClick={(e) => handleLike(e.target.id)}
                         />
                       )}
-                      &nbsp;{likesCount}
+                      &nbsp;&nbsp;{likesCount}
                     </div>
                   </div>
                   <img src={item[2]} className={styles.picture} />
@@ -159,37 +200,3 @@ function Story() {
 }
 
 export default Story;
-
-// <div className={styles.container}>
-//       <img className={styles.leftSwipe} src={leftSwipe} />
-//       <div className={styles.story}>
-//         <Swiper
-//           spaceBetween={50}
-//           slidesPerView={3}
-//           onSlideChange={() => console.log("slide change")}
-//           onSwiper={(swiper) => console.log(swiper)}
-//         >
-//           <div className={styles.topSubContainer}>
-//             <img
-//               className={styles.images}
-//               src={close}
-//               onClick={() => dispatch(unSetStory())}
-//             />
-//             <img className={styles.images} src={share} />
-//           </div>
-
-//           {storySlider.map((item) => {
-//             return (
-//               <SwiperSlide>
-//                 <div className={styles.bottomSubContainer}>
-//                   <h4 className={styles.heading}>{item[0]}</h4>
-//                   <p className={styles.description}>{item[1]}</p>
-//                   <img src={item[2]} className={styles.picture} />
-//                 </div>
-//               </SwiperSlide>
-//             );
-//           })}
-//         </Swiper>
-//       </div>
-//       <img className={styles.rightSwipe} src={rightSwipe} />
-//     </div>

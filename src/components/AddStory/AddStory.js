@@ -8,7 +8,7 @@ import { setSlide, unSetSlide } from "../../slices/slideSlice";
 import { addPost, updateStoryPostById } from "../../apis/storyAuth";
 import { unSetEditPost } from "../../slices/editPostSlice";
 import cross from "../../assets/icons/cross.png";
-import { setTrigger, unSetTrigger } from "../../slices/triggerSlice";
+// import { setTrigger, unSetTrigger } from "../../slices/bookmarkSlice";
 
 function AddStory() {
   const slideState = useSelector((state) => state.slide);
@@ -261,8 +261,8 @@ function AddStory() {
     if (storyDetails?.category) {
       await updateStoryPostById(storyDetails?._id, storyData);
       dispatch(unSetSlide());
-      dispatch(setTrigger());
-      dispatch(unSetTrigger());
+      // dispatch(setTrigger());
+      // dispatch(unSetTrigger());
       dispatch(unSetEditPost());
       return;
     }
@@ -270,8 +270,8 @@ function AddStory() {
     const result = await addPost(storyData);
 
     dispatch(unSetAddStory());
-    dispatch(setTrigger());
-    dispatch(unSetTrigger());
+    // dispatch(setTrigger());
+    // dispatch(unSetTrigger());
     dispatch(unSetSlide());
     navigate("/");
     // console.log("result on register", result);

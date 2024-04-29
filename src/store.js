@@ -5,7 +5,7 @@ import userReducer from "./slices/userSlice";
 import addStoryReducer from "./slices/addStorySlice";
 import slideReducer from "./slices/slideSlice";
 import editPostReducer from "./slices/editPostSlice";
-import triggerReducer from "./slices/triggerSlice";
+import bookmarkReducer from "./slices/bookmarkSlice";
 import storyReducer from "./slices/storySlice";
 
 const store = configureStore({
@@ -16,7 +16,7 @@ const store = configureStore({
     addStory: addStoryReducer,
     slide: slideReducer,
     editPost: editPostReducer,
-    triggerPoint: triggerReducer,
+    bookmark: bookmarkReducer,
     story: storyReducer,
   },
 });
