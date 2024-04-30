@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import styles from "./Story.module.css";
+import { useParams } from "react-router-dom";
+import styles from "./StoryPost.module.css";
 import close from "../../assets/icons/close.png";
 import share from "../../assets/icons/share.png";
 import unLike from "../../assets/icons/unlike.png";
@@ -19,22 +20,23 @@ import {
   getLikesOnStory,
   updateBookmarkOnStory,
   getBookmarkOnStory,
+  getStory,
 } from "../../apis/storyAuth";
 import { CopyToClipboard } from "react-copy-to-clipboard";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 // import "swiper/css/navigation";
 // import "swiper/css/pagination";
 // import "swiper/css/scrollbar";
 
-function Story() {
+function StoryPost() {
   const dispatch = useDispatch();
-  const storyState = useSelector((state) => state.story);
+  const { id } = useParams();
+
+  // const storyState = useSelector((state) => state.story);
   const userState = useSelector((state) => state.user);
   const loginState = useSelector((state) => state.login);
 
   // const [isLoggedIn, setIsLoggedIn] = useState(loginState.value);
-  const [storyDetails, setStoryDetails] = useState(storyState.value);
+  const [storyDetails, setStoryDetails] = useState();
   const [storySlider, setStorySlider] = useState([]);
   const [isLiked, setIsLiked] = useState(false);
   const [likesCount, setLikesCount] = useState();
@@ -42,6 +44,7 @@ function Story() {
   const [storyLink, setStoryLink] = useState("");
 
   console.log("StoryDetails", storyDetails);
+  console.log("useParamsid", id);
 
   const sliderArray = () => {
     let arr = [];
@@ -65,6 +68,13 @@ function Story() {
     }
 
     setStorySlider([...arr]);
+  };
+
+  const fetchStoryPost = async (id) => {
+    const result = await getStory({ id: id });
+    console.log("result", result);
+    setStoryDetails(result);
+    // dispatch(setStory(result));
   };
 
   const getLikes = async () => {
@@ -93,13 +103,14 @@ function Story() {
   }, [storyDetails]);
 
   useEffect(() => {
-    getLikes();
-    getBookmark();
+    // getLikes();
+    // getBookmark();
   }, [loginState.value]);
 
   useEffect(() => {
-    getLikes();
-    getBookmark();
+    fetchStoryPost(id);
+    // getLikes();
+    // getBookmark();
     createStoryLink();
   }, []);
 
@@ -162,20 +173,7 @@ function Story() {
                   />
                   <CopyToClipboard
                     text={storyLink}
-                    onCopy={() =>
-                      toast("Link copied to clipboard", {
-                        position: "top-center",
-                        autoClose: 5000,
-                        hideProgressBar: true,
-                        closeOnClick: true,
-                        pauseOnHover: true,
-                        draggable: true,
-                        progress: undefined,
-                        theme: "colored",
-
-                        // transition: Bounce,
-                      })
-                    }
+                    onCopy={() => alert("Link copied to clipboard")}
                   >
                     <img className={styles.images} src={share} />
                   </CopyToClipboard>
@@ -223,10 +221,8 @@ function Story() {
         })}
       </Swiper>
       {loginState.value === 1 && <Login />}
-
-      <ToastContainer />
     </div>
   );
 }
 
-export default Story;
+export default StoryPost;
