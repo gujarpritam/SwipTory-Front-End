@@ -95,7 +95,7 @@ function StoryPost() {
 
   const createStoryLink = () => {
     let link =
-      "https://swiptory-front-end-fche.onrender.com/view-story/" +
+      "https://swiptory-front-end-9ey0.onrender.com/view-story/" +
       storyDetails?._id;
     setStoryLink(link);
   };
