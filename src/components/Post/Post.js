@@ -34,7 +34,7 @@ function Post() {
   // console.log("all", storyDetails?.foodData);
 
   const fetchAllStories = async (data) => {
-    const user = userState.value;
+    const user = userState?.value;
     const result = await getAllStories({ user, category: data });
 
     setStoryDetails(result?.data);
@@ -141,6 +141,18 @@ function Post() {
                           {item["description"]}
                         </p>
 
+                        {userState.value === item["username"] ? (
+                          <button
+                            className={styles.button}
+                            onClick={() => fetchStory(item["id"])}
+                          >
+                            <img src={edit} />
+                            Edit
+                          </button>
+                        ) : (
+                          <span></span>
+                        )}
+
                         <img
                           onClick={() => fetchStoryPost(item["id"])}
                           src={item["imgUrl"]}
@@ -197,6 +209,19 @@ function Post() {
                           <p className={styles.description}>
                             {item["description"]}
                           </p>
+
+                          {userState.value === item["username"] ? (
+                            <button
+                              className={styles.button}
+                              onClick={() => fetchStory(item["id"])}
+                            >
+                              <img src={edit} />
+                              Edit
+                            </button>
+                          ) : (
+                            <span></span>
+                          )}
+
                           <img
                             onClick={() => fetchStoryPost(item["id"])}
                             src={item["imgUrl"]}
@@ -222,6 +247,19 @@ function Post() {
                           <p className={styles.description}>
                             {item["description"]}
                           </p>
+
+                          {userState.value === item["username"] ? (
+                            <button
+                              className={styles.button}
+                              onClick={() => fetchStory(item["id"])}
+                            >
+                              <img src={edit} />
+                              Edit
+                            </button>
+                          ) : (
+                            <span></span>
+                          )}
+
                           <img
                             onClick={() => fetchStoryPost(item["id"])}
                             src={item["imgUrl"]}
@@ -247,6 +285,19 @@ function Post() {
                           <p className={styles.description}>
                             {item["description"]}
                           </p>
+
+                          {userState.value === item["username"] ? (
+                            <button
+                              className={styles.button}
+                              onClick={() => fetchStory(item["id"])}
+                            >
+                              <img src={edit} />
+                              Edit
+                            </button>
+                          ) : (
+                            <span></span>
+                          )}
+
                           <img
                             onClick={() => fetchStoryPost(item["id"])}
                             src={item["imgUrl"]}
@@ -272,6 +323,19 @@ function Post() {
                           <p className={styles.description}>
                             {item["description"]}
                           </p>
+
+                          {userState.value === item["username"] ? (
+                            <button
+                              className={styles.button}
+                              onClick={() => fetchStory(item["id"])}
+                            >
+                              <img src={edit} />
+                              Edit
+                            </button>
+                          ) : (
+                            <span></span>
+                          )}
+
                           <img
                             onClick={() => fetchStoryPost(item["id"])}
                             src={item["imgUrl"]}
@@ -297,6 +361,19 @@ function Post() {
                           <p className={styles.description}>
                             {item["description"]}
                           </p>
+
+                          {userState.value === item["username"] ? (
+                            <button
+                              className={styles.button}
+                              onClick={() => fetchStory(item["id"])}
+                            >
+                              <img src={edit} />
+                              Edit
+                            </button>
+                          ) : (
+                            <span></span>
+                          )}
+
                           <img
                             onClick={() => fetchStoryPost(item["id"])}
                             src={item["imgUrl"]}

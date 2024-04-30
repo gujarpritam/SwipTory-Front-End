@@ -9,7 +9,7 @@ import storyBookmark from "../../assets/icons/story-bookmark.png";
 import storyBookmarked from "../../assets/icons/bookmarked.png";
 import { unSetStory } from "../../slices/storySlice";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
+import { Navigation, A11y, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/swiper-bundle.css";
 import { setLogin } from "../../slices/loginSlice";
@@ -23,8 +23,8 @@ import {
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-// import "swiper/css/navigation";
-// import "swiper/css/pagination";
+import "swiper/css/navigation";
+import "swiper/css/autoplay";
 // import "swiper/css/scrollbar";
 
 function Story() {
@@ -84,7 +84,9 @@ function Story() {
   };
 
   const createStoryLink = () => {
-    let link = "http://localhost:3000/view-story/" + storyDetails?._id;
+    let link =
+      "https://swiptory-front-end-fche.onrender.com/view-story/" +
+      storyDetails?._id;
     setStoryLink(link);
   };
 
@@ -133,10 +135,11 @@ function Story() {
   return (
     <div className={styles.container}>
       <Swiper
-        modules={[Navigation, A11y]}
+        modules={[Navigation, A11y, Autoplay]}
         spaceBetween={50}
         slidesPerView={1}
         navigation
+        autoplay={true}
         style={{
           width: "90vh",
           display: "flex",
@@ -187,12 +190,14 @@ function Story() {
                     {isBookmarked === false ? (
                       <img
                         id="not-bookmarked"
+                        className={styles.bookmark}
                         src={storyBookmark}
                         onClick={(e) => handleBookmark(e.target.id)}
                       />
                     ) : (
                       <img
                         id="bookmarked"
+                        className={styles.bookmark}
                         src={storyBookmarked}
                         onClick={(e) => handleBookmark(e.target.id)}
                       />
@@ -202,12 +207,14 @@ function Story() {
                       {isLiked === false ? (
                         <img
                           id="unliked"
+                          className={styles.like}
                           src={unLike}
                           onClick={(e) => handleLike(e.target.id)}
                         />
                       ) : (
                         <img
                           id="liked"
+                          className={styles.like}
                           src={liked}
                           onClick={(e) => handleLike(e.target.id)}
                         />

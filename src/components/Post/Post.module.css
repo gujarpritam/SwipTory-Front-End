@@ -91,7 +91,7 @@ align-items: center;
   color: white;
   cursor: pointer;
   box-sizing: border-box;
-  /* padding: 0.5vh; */
+  /* border: 1px solid red; */
 }
 
 .picture{
@@ -117,7 +117,7 @@ align-items: center;
   border: none;
   border-radius: 10px;
   font-weight: bold;
-  
+  cursor: pointer;
   position: relative;
   top: 1vh;
 }

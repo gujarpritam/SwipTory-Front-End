@@ -87,3 +87,7 @@ border: 1px solid black;
 .leftSwipe, .rightSwipe{
   cursor: pointer;
 }
+
+.bookmark, .like{
+  cursor: pointer;
+}

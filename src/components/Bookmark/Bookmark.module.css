@@ -44,6 +44,18 @@
   margin-bottom: 1vh;
 }
 
+.button{
+  background: white;
+  color: black;
+  padding: 0.5vh 2vh;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  
+  position: relative;
+  top: 1vh;
+}
+
 .picture{
   height: 35vh;
   width: 25vh;

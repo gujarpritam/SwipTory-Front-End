@@ -235,6 +235,18 @@ function AddStory() {
     if (l1 || l2 || l3 || l4 || l5 || l6) {
       return true;
     }
+
+    if (
+      (storyData.slide1.length > 0 && storyData.slide1.length < 3) ||
+      (storyData.slide2.length > 0 && storyData.slide2.length < 3) ||
+      (storyData.slide3.length > 0 && storyData.slide3.length < 3) ||
+      (storyData.slide4.length > 0 && storyData.slide4.length < 3) ||
+      (storyData.slide5.length > 0 && storyData.slide5.length < 3) ||
+      (storyData.slide6.length > 0 && storyData.slide6.length < 3)
+    ) {
+      return true;
+    }
+
     return false;
   };
 

@@ -4,12 +4,16 @@ import styles from "./Bookmark.module.css";
 import { getBookmarkedStories, getStory } from "../../apis/storyAuth";
 import { unSetBookmark } from "../../slices/bookmarkSlice";
 import { setStory } from "../../slices/storySlice";
+import { setEditPost } from "../../slices/editPostSlice";
 import Story from "../Story/Story";
+import AddStory from "../AddStory/AddStory";
+import edit from "../../assets/icons/edit.jpg";
 
 function Bookmark() {
   const dispatch = useDispatch();
   const userState = useSelector((state) => state.user);
   const storyState = useSelector((state) => state.story);
+  const editPostState = useSelector((state) => state.editPost);
 
   const [storyDetails, setStoryDetails] = useState([]);
 
@@ -29,9 +33,18 @@ function Bookmark() {
     dispatch(setStory(result));
   };
 
+  const fetchStory = async (id) => {
+    const result = await getStory({ id: id });
+    console.log("result", result);
+    // setPostDetails(result);
+    dispatch(setEditPost(result));
+  };
+
   useEffect(() => {
     fetchBookmarkStories();
   }, []);
+
+  console.log("storyDetails", storyDetails);
 
   return (
     <div className={styles.categoryBox}>
@@ -45,6 +58,18 @@ function Bookmark() {
               <div className={styles.imgWrapper}>
                 <h5>{item["heading"]}</h5>
                 <p className={styles.description}>{item["description"]}</p>
+
+                {userState.value === item["username"] ? (
+                  <button
+                    className={styles.button}
+                    onClick={() => fetchStory(item["id"])}
+                  >
+                    <img src={edit} />
+                    Edit
+                  </button>
+                ) : (
+                  <span></span>
+                )}
 
                 <img
                   onClick={() => fetchStoryPost(item["id"])}
@@ -65,7 +90,7 @@ function Bookmark() {
       >
         Back
       </button>
-
+      {editPostState?.value !== null && <AddStory />}
       {storyState.value !== null && <Story />}
     </div>
   );
