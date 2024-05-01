@@ -70,6 +70,11 @@ padding: 0.5rem;
 border: 1px solid black;
 }
 
+.userDetails{
+  display: flex;
+  flex-direction: row;
+}
+
 .error, .invalidCredentialsError{
   color: red;
   display: none;
@@ -84,5 +89,17 @@ color: black;
 margin-right: 1rem;
 cursor: pointer;
 font-weight: bold;
+}
 
+@media (max-width:550px){
+.login{
+  width: 70vw;
+}
+
+.userDetails{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
 }

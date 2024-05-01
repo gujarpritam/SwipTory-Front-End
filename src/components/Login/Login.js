@@ -56,7 +56,7 @@ function Login() {
             X
           </button>
           <h3>Login to SwipTory</h3>
-          <div>
+          <div className={styles.userDetails}>
             <span>Username</span>
             <input
               className={styles.input}
@@ -68,7 +68,7 @@ function Login() {
             ></input>
           </div>
 
-          <div>
+          <div className={styles.userDetails}>
             <span>Password</span>
             <input
               className={styles.input}

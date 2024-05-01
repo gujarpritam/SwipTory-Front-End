@@ -268,6 +268,10 @@ function AddStory() {
   return (
     <div className={styles.container}>
       <div className={styles.addStory}>
+        <p className={styles.addSlideWarning}>Add upto 6 slides</p>
+        <p className={styles.minSlidesError}>Minimum 3 slides are required</p>
+        <p className={styles.slideSelectionError}>Please select a slide</p>
+        <h3 className={styles.storyHead}>Add Story to Feed</h3>
         <div className={styles.subContainer}>
           <button
             onClick={() => {
@@ -290,9 +294,7 @@ function AddStory() {
           >
             X
           </button>
-          <p className={styles.addSlideWarning}>Add upto 6 slides</p>
-          <p className={styles.minSlidesError}>Minimum 3 slides are required</p>
-          <p className={styles.slideSelectionError}>Please select a slide</p>
+
           <div className={styles.slides}>
             <button
               id={styles.slide1}

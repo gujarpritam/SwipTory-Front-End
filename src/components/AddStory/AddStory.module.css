@@ -17,6 +17,7 @@
   width: 60vw;
   border: 1px solid black;
   display:  flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   border-radius: 10px;
@@ -71,6 +72,10 @@ top: 10%;
   margin-bottom: 1%;
 }
 
+.storyHead{
+  display: none;
+}
+
 .inputError{
   display: none;
   color: red;
@@ -107,8 +112,6 @@ margin-left: 2px;
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
-  
-
   height: 70%;
 }
 
@@ -160,3 +163,53 @@ margin-left: 2px;
       font-weight: bold;
       background-color: #FF7373;
       }
+
+@media (max-width:550px){
+.addStory{
+  width: 75vw;
+}
+
+.formGroup{
+display: flex;
+flex-direction: column;
+}
+
+.subContainer{
+  position: relative;
+  display:  flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.closeAddStory{
+  position: absolute;
+  top: -15%;
+  right: 0%;
+}
+.addSlideWarning{
+  display: none;
+}
+
+.storyHead{
+  display: flex;
+}
+.slides{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.input, .select, .option{
+  width: 95%;
+  border: 1px solid black;
+}
+
+.buttonContainer{
+  position: absolute;
+  bottom: 0px;
+}
+
+.previous, .next{display: none;}
+}
