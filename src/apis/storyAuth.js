@@ -23,13 +23,8 @@ export const addPost = async ({
       slide6,
       username,
     });
-
-    console.log("responseData", response);
-
-    // return result;
   } catch (error) {
     console.log(error);
-    // alert("Something went wrong");
   }
 };
 
@@ -40,11 +35,6 @@ export const getAllStories = async (filter) => {
     }&category=${filter?.category || ""}`;
 
     const response = await axios.get(reqUrl);
-
-    console.log(typeof response);
-    console.log("response?.data", response?.data);
-
-    console.log("response?.data.data", response?.data?.data);
 
     return response?.data;
   } catch (error) {
@@ -60,8 +50,6 @@ export const getStory = async (filter) => {
 
     const response = await axios.get(reqUrl);
 
-    console.log("response?.data.data", response?.data?.data);
-
     return response?.data?.data;
   } catch (error) {
     console.log(error);
@@ -76,11 +64,8 @@ export const updateStoryPostById = async (id, storyData) => {
 
     const token = localStorage.getItem("swiptoryToken");
 
-    console.log("id", id, "storyData", storyData);
     axios.defaults.headers.common["Authorization"] = token;
     const response = await axios.put(reqUrl, storyData);
-
-    // return response.data;
   } catch (error) {
     console.log(error);
   }
@@ -94,11 +79,8 @@ export const updateLikesOnStoryPost = async (storyId, likeStatus) => {
 
     const token = localStorage.getItem("swiptoryToken");
 
-    console.log("id", storyId, "likeStatus", likeStatus, "token", token);
     axios.defaults.headers.common["Authorization"] = token;
     const response = await axios.put(reqUrl);
-
-    // return response.data;
   } catch (error) {
     console.log(error);
   }
@@ -110,10 +92,7 @@ export const getLikesOnStory = async (storyId, username) => {
       storyId || ""
     }&username=${username || ""}`;
 
-    console.log("id", storyId, "username", username);
     const response = await axios.get(reqUrl);
-
-    console.log("response?.data", response?.data);
 
     return response?.data;
   } catch (error) {
@@ -131,18 +110,8 @@ export const updateBookmarkOnStory = async (storyId, bookmarkStatus) => {
 
     const token = localStorage.getItem("swiptoryToken");
 
-    console.log(
-      "id",
-      storyId,
-      "bookmarkStatus",
-      bookmarkStatus,
-      "token",
-      token
-    );
     axios.defaults.headers.common["Authorization"] = token;
     const response = await axios.put(reqUrl);
-
-    // return response.data;
   } catch (error) {
     console.log(error);
   }
@@ -154,10 +123,7 @@ export const getBookmarkOnStory = async (storyId, username) => {
       storyId || ""
     }&username=${username || ""}`;
 
-    console.log("id", storyId, "username", username);
     const response = await axios.get(reqUrl);
-
-    console.log("response?.data", response?.data);
 
     return response?.data;
   } catch (error) {
@@ -172,8 +138,6 @@ export const getBookmarkedStories = async (filter) => {
     }/story/get/bookmarks?user=${filter?.user || ""}`;
 
     const response = await axios.get(reqUrl);
-
-    console.log("response?.data", response?.data);
 
     return response?.data;
   } catch (error) {

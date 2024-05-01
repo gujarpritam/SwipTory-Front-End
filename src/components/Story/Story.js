@@ -85,7 +85,7 @@ function Story() {
 
   const createStoryLink = () => {
     let link =
-      "https://swiptory-front-end-9ey0.onrender.com/view-story/" +
+      "https://swip-tory-front-rgoby5nzw-pritams-projects-63650ae1.vercel.app/view-story/" +
       storyDetails?._id;
     setStoryLink(link);
   };

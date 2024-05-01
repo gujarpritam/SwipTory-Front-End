@@ -6,8 +6,6 @@ export const registerUser = async ({ username, password }) => {
 
     const response = await axios.post(reqUrl, { username, password });
 
-    console.log("responseData", response?.data);
-
     localStorage.setItem("swiptoryToken", response?.data?.swiptoryToken);
     localStorage.setItem("username", response?.data?.username);
 
@@ -19,7 +17,6 @@ export const registerUser = async ({ username, password }) => {
     return result;
   } catch (error) {
     console.log(error);
-    // alert("Something went wrong");
   }
 };
 
@@ -28,7 +25,6 @@ export const loginUser = async ({ username, password }) => {
     const reqUrl = `${process.env.REACT_APP_BACKEND_URL}/auth/login`;
 
     const response = await axios.post(reqUrl, { username, password });
-    console.log("responseData", response?.data);
 
     localStorage.setItem("swiptoryToken", response?.data?.swiptoryToken);
     localStorage.setItem("username", response?.data?.username);
@@ -41,6 +37,5 @@ export const loginUser = async ({ username, password }) => {
     return result;
   } catch (error) {
     console.log(error);
-    // alert("Something went wrong");
   }
 };
