@@ -25,26 +25,20 @@ import {
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import "swiper/css/navigation";
 import "swiper/css/autoplay";
-// import "swiper/css/scrollbar";
 
 function StoryPost() {
   const dispatch = useDispatch();
   const { id } = useParams();
 
-  // const storyState = useSelector((state) => state.story);
   const userState = useSelector((state) => state?.user);
   const loginState = useSelector((state) => state?.login);
 
-  // const [isLoggedIn, setIsLoggedIn] = useState(loginState.value);
   const [storyDetails, setStoryDetails] = useState();
   const [storySlider, setStorySlider] = useState([]);
   const [isLiked, setIsLiked] = useState(false);
   const [likesCount, setLikesCount] = useState();
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [storyLink, setStoryLink] = useState("");
-
-  console.log("StoryDetails", storyDetails);
-  console.log("useParamsid", id);
 
   const sliderArray = () => {
     let arr = [];
@@ -72,9 +66,8 @@ function StoryPost() {
 
   const fetchStoryPost = async (id) => {
     const result = await getStory({ id: id });
-    console.log("result", result);
+
     setStoryDetails(result);
-    // dispatch(setStory(result));
   };
 
   const getLikes = async () => {
@@ -95,7 +88,7 @@ function StoryPost() {
 
   const createStoryLink = () => {
     let link =
-      "https://swip-tory-front-rgoby5nzw-pritams-projects-63650ae1.vercel.app/view-story/" +
+      "https://swip-tory-front-end-tan.vercel.app/view-story/" +
       storyDetails?._id;
     setStoryLink(link);
   };
@@ -104,20 +97,15 @@ function StoryPost() {
     sliderArray();
   }, [storyDetails]);
 
-  useEffect(() => {
-    // getLikes();
-    // getBookmark();
-  }, [loginState.value]);
+  useEffect(() => {}, [loginState.value]);
 
   useEffect(() => {
     fetchStoryPost(id);
-    // getLikes();
-    // getBookmark();
+
     createStoryLink();
   }, []);
 
   const handleLike = async (likeStatus) => {
-    console.log("likeStatus", likeStatus);
     if (userState.value === null) {
       dispatch(setLogin());
       return;
@@ -128,7 +116,6 @@ function StoryPost() {
   };
 
   const handleBookmark = async (bookmarkStatus) => {
-    console.log("bookmarkStatus", bookmarkStatus);
     if (userState.value === null) {
       dispatch(setLogin());
       return;
@@ -140,8 +127,6 @@ function StoryPost() {
     );
     getBookmark();
   };
-
-  console.log("storySlider", storySlider);
 
   return (
     <div className={styles.container}>

@@ -1,6 +1,5 @@
 .nav{
-  /* height: 5vh; */
-  /* width: 100vw; */
+  
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -28,7 +27,7 @@ color: white;
 margin-right: 1rem;
 cursor: pointer;
 text-align: center;
-/* font-weight: 500; */
+
 }
 
 .logout{
@@ -69,7 +68,7 @@ text-align: center;
   justify-content: space-evenly;
   height: 15vh;
 width: 10vw;
-/* border: 1px solid red; */
+
 position: fixed;
 right: 0px;
 z-index: 100;

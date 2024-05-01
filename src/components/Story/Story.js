@@ -25,7 +25,6 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "swiper/css/navigation";
 import "swiper/css/autoplay";
-// import "swiper/css/scrollbar";
 
 function Story() {
   const dispatch = useDispatch();
@@ -33,15 +32,12 @@ function Story() {
   const userState = useSelector((state) => state.user);
   const loginState = useSelector((state) => state.login);
 
-  // const [isLoggedIn, setIsLoggedIn] = useState(loginState.value);
   const [storyDetails, setStoryDetails] = useState(storyState.value);
   const [storySlider, setStorySlider] = useState([]);
   const [isLiked, setIsLiked] = useState(false);
   const [likesCount, setLikesCount] = useState();
   const [isBookmarked, setIsBookmarked] = useState(false);
   const [storyLink, setStoryLink] = useState("");
-
-  console.log("StoryDetails", storyDetails);
 
   const sliderArray = () => {
     let arr = [];
@@ -85,7 +81,7 @@ function Story() {
 
   const createStoryLink = () => {
     let link =
-      "https://swip-tory-front-rgoby5nzw-pritams-projects-63650ae1.vercel.app/view-story/" +
+      "https://swip-tory-front-end-tan.vercel.app/view-story/" +
       storyDetails?._id;
     setStoryLink(link);
   };
@@ -106,7 +102,6 @@ function Story() {
   }, []);
 
   const handleLike = async (likeStatus) => {
-    console.log("likeStatus", likeStatus);
     if (userState.value === null) {
       dispatch(setLogin());
       return;
@@ -117,7 +112,6 @@ function Story() {
   };
 
   const handleBookmark = async (bookmarkStatus) => {
-    console.log("bookmarkStatus", bookmarkStatus);
     if (userState.value === null) {
       dispatch(setLogin());
       return;
@@ -129,8 +123,6 @@ function Story() {
     );
     getBookmark();
   };
-
-  console.log("storySlider", storySlider);
 
   return (
     <div className={styles.container}>
@@ -175,8 +167,6 @@ function Story() {
                         draggable: true,
                         progress: undefined,
                         theme: "colored",
-
-                        // transition: Bounce,
                       })
                     }
                   >

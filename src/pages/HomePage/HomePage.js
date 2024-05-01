@@ -12,8 +12,6 @@ function HomePage() {
   const storyPost = useSelector((state) => state.addStory);
   const bookmarkState = useSelector((state) => state.bookmark);
 
-  // console.log("triggerState.value", triggerState.value);
-
   if (
     loginState?.value === 1 ||
     registerState?.value === 1 ||

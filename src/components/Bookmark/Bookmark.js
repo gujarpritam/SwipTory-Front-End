@@ -28,23 +28,19 @@ function Bookmark() {
 
   const fetchStoryPost = async (id) => {
     const result = await getStory({ id: id });
-    console.log("result", result);
-    // setPostDetails(result);
+
     dispatch(setStory(result));
   };
 
   const fetchStory = async (id) => {
     const result = await getStory({ id: id });
-    console.log("result", result);
-    // setPostDetails(result);
+
     dispatch(setEditPost(result));
   };
 
   useEffect(() => {
     fetchBookmarkStories();
   }, []);
-
-  console.log("storyDetails", storyDetails);
 
   return (
     <div className={styles.categoryBox}>

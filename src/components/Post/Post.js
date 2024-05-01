@@ -20,18 +20,10 @@ function Post() {
   const editPostState = useSelector((state) => state.editPost);
   const storyState = useSelector((state) => state.story);
   const addStoryState = useSelector((state) => state.addStory);
-  // const loginState = useSelector((state) => state.login);
-  // const triggerState = useSelector((state) => state.trigger);
-  // const [loginValue, setLoginValue] = useState(loginState.value);
 
   const [storyDetails, setStoryDetails] = useState([]);
   const [itemCategory, setItemCategory] = useState("");
   const [postDetails, setPostDetails] = useState([]);
-
-  console.log("storyDetails", storyDetails);
-  console.log("postDetails", postDetails);
-  // console.log("loginValue", loginValue);
-  // console.log("all", storyDetails?.foodData);
 
   const fetchAllStories = async (data) => {
     const user = userState?.value;
@@ -48,15 +40,13 @@ function Post() {
       return;
     }
     const result = await getStory({ id: id });
-    console.log("result", result);
-    // setPostDetails(result);
+
     dispatch(setEditPost(result));
   };
 
   const fetchStoryPost = async (id) => {
     const result = await getStory({ id: id });
-    console.log("result", result);
-    // setPostDetails(result);
+
     dispatch(setStory(result));
   };
 

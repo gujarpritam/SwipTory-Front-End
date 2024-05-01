@@ -5,12 +5,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { unSetLogin } from "../../slices/loginSlice";
 import { loginUser } from "../../apis/userAuth";
 import { setUser } from "../../slices/userSlice";
-// import { setTrigger, unSetTrigger } from "../../slices/triggerSlice";
 
 function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  // const triggerState = useSelector((state) => state.triggerPoint);
 
   const [userData, setUserData] = useState({
     username: "",
@@ -30,14 +28,11 @@ function Login() {
     }
 
     const result = await loginUser(userData);
-    console.log("result on login", result);
 
     if (result) {
-      // dispatch(setTrigger());
-      // console.log("setTrigger", triggerState.value);
       dispatch(setUser(result));
       dispatch(unSetLogin());
-      // dispatch(unSetTrigger());
+
       navigate("/");
     }
 
@@ -78,7 +73,6 @@ function Login() {
             <input
               className={styles.input}
               name="password"
-              // value={formData.password}
               onChange={handleFormChange}
               type={"password"}
               placeholder="Enter password"

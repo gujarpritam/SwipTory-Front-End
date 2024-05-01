@@ -16,7 +16,7 @@
   flex-wrap: wrap;
   margin: 1vh;
   width: 100vw;
-  /* border: 1px solid red; */
+  
 }
 
 .imgWrapper{
@@ -28,14 +28,11 @@
   height: 35vh;
   width: 25vh;
   border-radius: 15px;
-  /* background: black; */
   opacity: 0.9;
   position: relative;
-  /* top: 0px; */
   color: white;
   cursor: pointer;
   box-sizing: border-box;
-  /* padding: 0.5vh; */
 }
 
 .description{

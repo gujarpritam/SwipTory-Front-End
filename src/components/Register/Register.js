@@ -28,7 +28,7 @@ function Register() {
     }
 
     const result = await registerUser(userData);
-    console.log("result on register", result);
+
     if (result) {
       dispatch(setUser(result));
       dispatch(unSetRegistration());

@@ -4,7 +4,6 @@
   justify-content: center;
   height: 100%;
   width: 100%;
-  /* border: 1px solid red; */
   position: fixed;
   top: 0px;
   opacity: 0.95;
@@ -18,16 +17,12 @@
   align-items: flex-start;
   justify-content: space-between;
   margin: 2vh 4vh;
-  /* padding: 2vh 2vh; */
   height: 60vh;
   width: 50vh;
   border-radius: 15px;
-  /* background: black; */
   opacity: 1;
   position: relative;
-  /* top: 0px; */
   color: white;
-  /* border: 1px solid red; */
   box-sizing: border-box;
 }
 
@@ -47,12 +42,10 @@
   justify-content: space-between;
   align-items: center;
   margin-top: 1vh;
-  /* border: 1px solid red; */
 }
 
 .bottomSubContainer{
   width: 100%;
-  /* border: 1px solid black; */
 }
 
 .images{
@@ -82,7 +75,6 @@ justify-content: space-between;
 align-items: center;
 margin-bottom: 1rem;
 padding: 0px 3rem;
-border: 1px solid black;
 }
 .leftSwipe, .rightSwipe{
   cursor: pointer;

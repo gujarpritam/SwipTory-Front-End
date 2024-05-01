@@ -8,7 +8,6 @@ import { setSlide, unSetSlide } from "../../slices/slideSlice";
 import { addPost, updateStoryPostById } from "../../apis/storyAuth";
 import { unSetEditPost } from "../../slices/editPostSlice";
 import cross from "../../assets/icons/cross.png";
-// import { setTrigger, unSetTrigger } from "../../slices/bookmarkSlice";
 
 function AddStory() {
   const slideState = useSelector((state) => state.slide);
@@ -22,8 +21,6 @@ function AddStory() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  console.log("storyDetails", storyDetails);
-
   const [storyData, setStoryData] = useState({
     category: "" || storyDetails?.category,
     slide1: storyDetails?.slide1 || [],
@@ -35,46 +32,34 @@ function AddStory() {
     username: userState.value,
   });
 
-  console.log("storyData", storyData);
-
   const handleCategoryChange = (e) => {
-    console.log("event", e);
     setStoryData({ ...storyData, [e.target.name]: e.target.value });
   };
 
   const handleChange = (e) => {
     if (slideNumber !== null) {
       if (e.target.name === "heading") {
-        console.log("handleEvent", e);
         let arr = storyData[slideNumber];
-        console.log("typeof arr", typeof arr);
-        console.log("arr", arr);
+
         arr = Array.from(arr);
         arr[0] = e.target.value;
 
-        // if (arr[0].trim().length > 0) {
         setStoryData({ ...storyData, [slideNumber]: arr });
-        // }
       } else if (e.target.name === "description") {
-        console.log("handleEvent", e);
         let arr = storyData[slideNumber];
-        console.log("arr", arr);
+
         arr = Array.from(arr);
         arr[1] = e.target.value;
 
-        // if (arr[1].trim().length > 0) {
         setStoryData({ ...storyData, [slideNumber]: arr });
-        // }
       } else if (e.target.name === "image") {
-        console.log("handleEvent", e);
         let arr = storyData[slideNumber];
-        console.log("arr", arr);
+
         arr = Array.from(arr);
 
         arr[2] = e.target.value;
-        // if (arr[2].trim().length > 0) {
+
         setStoryData({ ...storyData, [slideNumber]: arr });
-        // }
       }
     } else {
       document
@@ -92,11 +77,11 @@ function AddStory() {
     const filteredButton = slidesCount.filter((item) => {
       return item !== id;
     });
-    console.log("filteredButton", filteredButton);
+
     setStoryData({ ...storyData, [id]: [] });
-    console.log("storyData", storyData);
+
     setSlidesCount([...filteredButton]);
-    console.log("slidesCount", slidesCount);
+
     event.stopPropagation();
   };
 
@@ -109,15 +94,13 @@ function AddStory() {
     } else if (arr.length === 2) {
       arr.push("slide6");
     }
-    console.log("arrSlideconut", arr);
+
     setSlidesCount([...arr]);
   };
 
   useEffect(() => {
     prevSlide = slideState.value;
 
-    console.log("slideNumber", slideNumber);
-    console.log("prevslide", prevSlide);
     if (prevSlide == "slide1") {
       document
         .getElementsByClassName(styles.slide)[0]
@@ -259,10 +242,6 @@ function AddStory() {
       return;
     }
 
-    console.log("storyData", storyData);
-    // console.log("storyDetails.category", storyDetails.category);
-    console.log("storyDetails._id", storyDetails?._id);
-
     if (isEmptyField()) {
       document
         .getElementsByClassName(styles.inputError)[0]
@@ -273,8 +252,7 @@ function AddStory() {
     if (storyDetails?.category) {
       await updateStoryPostById(storyDetails?._id, storyData);
       dispatch(unSetSlide());
-      // dispatch(setTrigger());
-      // dispatch(unSetTrigger());
+
       dispatch(unSetEditPost());
       return;
     }
@@ -282,20 +260,10 @@ function AddStory() {
     const result = await addPost(storyData);
 
     dispatch(unSetAddStory());
-    // dispatch(setTrigger());
-    // dispatch(unSetTrigger());
+
     dispatch(unSetSlide());
     navigate("/");
-    // console.log("result on register", result);
-    // if (result) {
-    //   dispatch(setUser(result));
-    // }
   };
-
-  console.log("Slide Num", slideNumber);
-  console.log("prev state", prevSlide);
-  // console.log("storyData", storyData);
-  console.log("slideCount", slidesCount);
 
   return (
     <div className={styles.container}>
@@ -353,7 +321,6 @@ function AddStory() {
               return (
                 <button
                   onClick={() => selectSlide(item)}
-                  // id={styles.{}}
                   className={styles.slide}
                 >
                   {item === "slide4" && <span>Slide 4</span>}
@@ -367,22 +334,6 @@ function AddStory() {
                 </button>
               );
             })}
-            {/* <button
-              onClick={() => selectSlide("slide5")}
-              id={styles.slide5}
-              className={styles.slide}
-            >
-              <img src={cross} className={styles.close} />
-              Slide 5
-            </button>
-            <button
-              onClick={() => selectSlide("slide6")}
-              id={styles.slide6}
-              className={styles.slide}
-            >
-              <img src={cross} className={styles.close} />
-              Slide 6
-            </button> */}
 
             <button onClick={() => addSlide()} className={styles.slide}>
               Add +
@@ -685,18 +636,8 @@ function AddStory() {
 
           <div className={styles.buttonContainer}>
             <div>
-              <button
-                // onClick={() => handleSubmit()}
-                className={styles.previous}
-              >
-                Previous
-              </button>
-              <button
-                // onClick={() => handleSubmit()}
-                className={styles.next}
-              >
-                Next
-              </button>
+              <button className={styles.previous}>Previous</button>
+              <button className={styles.next}>Next</button>
             </div>
 
             <button onClick={() => handleSubmit()} className={styles.post}>
