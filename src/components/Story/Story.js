@@ -81,7 +81,7 @@ function Story() {
 
   const createStoryLink = () => {
     let link =
-      "https://swip-tory-front-end-tan.vercel.app/view-story/" +
+      "https://swip-tory-front-end-three.vercel.app/view-story/" +
       storyDetails?._id;
     setStoryLink(link);
   };
